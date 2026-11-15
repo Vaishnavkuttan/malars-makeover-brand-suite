@@ -2669,12 +2669,12 @@
         outCanvas.height = dims.h;
         const oCtx = outCanvas.getContext('2d');
 
-        // Crisp 1000x1000 transparent artwork buffer
+        // Crisp 1600x1600 transparent artwork buffer (4x the 400-unit logo space)
         const artCanvas = document.createElement('canvas');
-        artCanvas.width = 1000;
-        artCanvas.height = 1000;
+        artCanvas.width = 1600;
+        artCanvas.height = 1600;
         const aCtx = artCanvas.getContext('2d');
-        aCtx.setTransform(2.5, 0, 0, 2.5, 0, 0);
+        aCtx.setTransform(4, 0, 0, 4, 0, 0);
 
         const mimes = [
           'video/webm;codecs=vp9',
@@ -2736,38 +2736,47 @@
           const framePalette = scene.palette;
           const frameBg = scene.bg || framePalette.bg || '#2B070C';
 
-          // Clear output frame and draw logo layer first
-          oCtx.globalCompositeOperation = 'source-over';
-          oCtx.clearRect(0, 0, dims.w, dims.h);
-
-          const artBox = Math.min(dims.w, dims.h) * 0.82;
-          const dx = (dims.w - artBox) / 2;
-          const dy = (dims.h - artBox) / 2;
-          oCtx.drawImage(artCanvas, dx, dy, artBox, artBox);
-
-          // Soft normalized radial gold aura placed BEHIND logo (destination-over)
-          // Safe across 3.0s, 4.5s, and 6.5s durations
+          // VIDEO HAS NO ALPHA CHANNEL: every pixel must be opaque or it renders as raw colour.
+          // (Painting a semi-transparent gold gradient onto an empty canvas is what produced the
+          //  big yellow disk behind the logo.) So: opaque base -> faint aura -> logo -> border.
           const holdProg = normT > 0.55 ? clamp01((normT - 0.55) / 0.45) : 0;
           const auraPulse = Math.max(0, Math.sin(holdProg * Math.PI));
-
-          oCtx.globalCompositeOperation = 'destination-over';
           const cx = dims.w / 2;
           const cy = dims.h / 2;
           const outerR = Math.max(dims.w, dims.h) * 0.65;
 
-          const bgGrad = oCtx.createRadialGradient(cx, cy, 24, cx, cy, outerR);
+          // 1) Opaque background base
+          oCtx.globalCompositeOperation = 'source-over';
+          oCtx.globalAlpha = 1;
+          const baseGrad = oCtx.createRadialGradient(cx, cy, 24, cx, cy, outerR);
           if (framePalette.isLight) {
-            bgGrad.addColorStop(0, '#FFFFFF');
-            bgGrad.addColorStop(0.55, '#FAF6F0');
-            bgGrad.addColorStop(1, '#EFE5D4');
+            baseGrad.addColorStop(0, '#FFFFFF');
+            baseGrad.addColorStop(0.55, '#FAF6F0');
+            baseGrad.addColorStop(1, '#EFE5D4');
           } else {
-            const goldAlpha = (0.14 + auraPulse * 0.14).toFixed(3);
-            bgGrad.addColorStop(0, `rgba(212, 175, 55, ${goldAlpha})`);
-            bgGrad.addColorStop(0.45, framePalette.bgGlow || '#6B1623');
-            bgGrad.addColorStop(1, frameBg);
+            baseGrad.addColorStop(0, framePalette.bgGlow || '#6B1623');
+            baseGrad.addColorStop(1, frameBg);
           }
-          oCtx.fillStyle = bgGrad;
+          oCtx.fillStyle = baseGrad;
           oCtx.fillRect(0, 0, dims.w, dims.h);
+
+          // 2) Very faint gold aura on dark surfaces only, fading to fully transparent
+          //    (drawn over the opaque base, so it can only warm the dark, never turn it yellow)
+          if (!framePalette.isLight) {
+            const auraA = (0.05 + auraPulse * 0.07).toFixed(3);
+            const auraR = Math.min(dims.w, dims.h) * 0.5;
+            const aura = oCtx.createRadialGradient(cx, cy, 0, cx, cy, auraR);
+            aura.addColorStop(0, `rgba(212, 175, 55, ${auraA})`);
+            aura.addColorStop(1, 'rgba(212, 175, 55, 0)');
+            oCtx.fillStyle = aura;
+            oCtx.fillRect(0, 0, dims.w, dims.h);
+          }
+
+          // 3) Logo layer, drawn larger so it reads clearly on a phone
+          const artBox = Math.min(dims.w, dims.h) * 1.25;
+          const dx = (dims.w - artBox) / 2;
+          const dy = (dims.h - artBox) / 2;
+          oCtx.drawImage(artCanvas, dx, dy, artBox, artBox);
 
           // Subtle double gold border inside video frame
           oCtx.globalCompositeOperation = 'source-over';
