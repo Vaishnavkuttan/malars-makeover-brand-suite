@@ -1040,6 +1040,8 @@
               <option value="luxury">4. Luxury Reveal</option>
               <option value="shimmer">5. Royal Shimmer</option>
               <option value="bloom">6. Soft Bloom</option>
+              <option value="cascade">7. Petal Cascade</option>
+              <option value="construct">8. Golden Construction</option>
             </select>
             <button id="dockBtnReplay" class="dock-export-btn" title="Replay Animation">↻ Replay</button>
           </div>
@@ -1407,6 +1409,18 @@
             <div class="card-title" style="color:var(--gold-bright);">06. Soft Bloom</div>
             <div class="card-desc">Gentle scale breath and fade-in tailored for calm studio transitions and watermarks.</div>
             <button class="dock-export-btn" onclick="previewMotionInStudio('bloom')">Preview in Studio →</button>
+          </div>
+
+          <div class="sub-card">
+            <div class="card-title" style="color:var(--gold-bright);">07. Petal Cascade</div>
+            <div class="card-desc">Five petals fly in from different directions and bounce into the lotus, the M grows like a stem, the tilak drops and twinkles, and the wordmark bounces up as the subtitle unfurls from a curve.</div>
+            <button class="dock-export-btn" onclick="previewMotionInStudio('cascade')">Preview in Studio →</button>
+          </div>
+
+          <div class="sub-card">
+            <div class="card-title" style="color:var(--gold-bright);">08. Golden Construction</div>
+            <div class="card-desc">Golden-ratio guides draw themselves, a glowing pen traces the lotus and M as hairlines that swell to full weight, a light sweep glints across the gold, and the wordmark tracks in.</div>
+            <button class="dock-export-btn" onclick="previewMotionInStudio('construct')">Preview in Studio →</button>
           </div>
         </div>
 
@@ -1922,6 +1936,11 @@
         let activePalette = THEMES[themeKey] || THEMES.maroon;
         let bgOverride = null;
 
+        // Presets 7 & 8 are self-contained (see section 7b)
+        if (motion === 'cascade' || motion === 'construct') {
+          return renderExtraMotion(ctx, { themeKey, lockup, motion, progress, elapsedMs, drawBg, skipBgFill });
+        }
+
         // Motion choreography parameters
         let mProg = 1;
         let outerLotusProg = 1;
@@ -2219,6 +2238,546 @@
         }
 
         ctx.restore();
+      }
+
+      /* ----------------------------------------------------------------------
+         7b. EXTRA MOTION PRESETS
+             7. PETAL CASCADE  (petals fly in separately, bounce, M grows like a stem,
+                                tilak drops + sparkles, letters bounce up, subtitle unfurls
+                                from a curve)
+             8. GOLDEN CONSTRUCTION (golden-ratio guides draw themselves, pen traces the
+                                logo, hairlines thicken to final weight, light sweep,
+                                wordmark tracks in)
+             Self-contained: they only READ shared helpers (THEMES, M_POINTS, easing,
+             measureSpacedText). Presets 1-6 are not touched. renderBrandScene() hands
+             these two motions to renderExtraMotion() at its very top, and the final
+             frame of both is identical to the static logo.
+         ---------------------------------------------------------------------- */
+      const EXTRA_MOTION_MS = { cascade: 4200, construct: 4600 };
+
+      // The live stage plays these two a little longer than the 2.6s default.
+      // (An accessor keeps the original animDuration line untouched.)
+      Object.defineProperty(state, 'animDuration', {
+        configurable: true,
+        get() { return EXTRA_MOTION_MS[state.motion] || 2600; }
+      });
+      MOTION_LABELS.cascade = '7. PETAL CASCADE';
+      MOTION_LABELS.construct = '8. GOLDEN CONSTRUCTION';
+
+      const xLerp = (a, b, t) => a + (b - a) * t;
+
+      function xEaseInOut(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      }
+
+      function xEaseOutBounce(t) {
+        const n1 = 7.5625, d1 = 2.75;
+        if (t < 1 / d1) return n1 * t * t;
+        if (t < 2 / d1) return n1 * (t -= 1.5 / d1) * t + 0.75;
+        if (t < 2.5 / d1) return n1 * (t -= 2.25 / d1) * t + 0.9375;
+        return n1 * (t -= 2.625 / d1) * t + 0.984375;
+      }
+
+      // Canonical emblem curves: identical numbers to drawEmblemGeometry().
+      // q = [x0, y0, cx, cy, x1, y1] quadratic segments; pivot = visual centre for rotation.
+      const X_PETALS = {
+        outerL: { c: 'ink',  lw: 4.5, pivot: [162, 183], q: [[200, 198, 152, 197, 124, 172], [124, 172, 164, 168, 200, 198]] },
+        outerR: { c: 'ink',  lw: 4.5, pivot: [238, 183], q: [[200, 198, 248, 197, 276, 172], [276, 172, 236, 168, 200, 198]] },
+        innerC: { c: 'gold', lw: 4.2, pivot: [200, 177], q: [[200, 198, 187, 175, 200, 156], [200, 156, 213, 175, 200, 198]] },
+        innerL: { c: 'gold', lw: 4.2, pivot: [187, 181], q: [[200, 198, 173, 188, 174, 165], [174, 165, 195, 172, 200, 198]] },
+        innerR: { c: 'gold', lw: 4.2, pivot: [213, 181], q: [[200, 198, 227, 188, 226, 165], [226, 165, 205, 172, 200, 198]] }
+      };
+
+      function xPetalPath(ctx, def) {
+        ctx.beginPath();
+        ctx.moveTo(def.q[0][0], def.q[0][1]);
+        def.q.forEach(s => ctx.quadraticCurveTo(s[2], s[3], s[4], s[5]));
+      }
+
+      function xPetalPoints(def, perCurve = 28) {
+        const pts = [];
+        def.q.forEach((s, k) => {
+          for (let i = (k === 0 ? 0 : 1); i <= perCurve; i++) {
+            const t = i / perCurve, u = 1 - t;
+            pts.push([u * u * s[0] + 2 * u * t * s[2] + t * t * s[4], u * u * s[1] + 2 * u * t * s[3] + t * t * s[5]]);
+          }
+        });
+        return pts;
+      }
+
+      // Strokes the first `frac` (0..1) of a polyline by length. Returns the pen-head point.
+      function xStrokePartial(ctx, pts, frac) {
+        if (frac <= 0) return null;
+        const lens = [];
+        let total = 0;
+        for (let i = 0; i < pts.length - 1; i++) {
+          const d = Math.hypot(pts[i + 1][0] - pts[i][0], pts[i + 1][1] - pts[i][1]);
+          lens.push(d);
+          total += d;
+        }
+        let rem = total * Math.min(1, frac);
+        let head = pts[0];
+        ctx.beginPath();
+        ctx.moveTo(pts[0][0], pts[0][1]);
+        for (let i = 0; i < lens.length && rem > 0; i++) {
+          if (rem >= lens[i]) {
+            ctx.lineTo(pts[i + 1][0], pts[i + 1][1]);
+            rem -= lens[i];
+            head = pts[i + 1];
+          } else {
+            const r = rem / lens[i];
+            head = [pts[i][0] + (pts[i + 1][0] - pts[i][0]) * r, pts[i][1] + (pts[i + 1][1] - pts[i][1]) * r];
+            ctx.lineTo(head[0], head[1]);
+            rem = 0;
+          }
+        }
+        ctx.stroke();
+        return head;
+      }
+
+      function xMStatic(ctx, palette, lw) {
+        ctx.strokeStyle = palette.ink;
+        ctx.lineWidth = lw;
+        ctx.beginPath();
+        ctx.moveTo(M_POINTS[0].x, M_POINTS[0].y);
+        for (let i = 1; i < M_POINTS.length; i++) ctx.lineTo(M_POINTS[i].x, M_POINTS[i].y);
+        ctx.stroke();
+      }
+
+      function xTilak(ctx, palette, ty, scale, alpha) {
+        if (alpha <= 0.001) return;
+        ctx.save();
+        ctx.globalAlpha *= alpha;
+        ctx.translate(200, 124 + ty);
+        ctx.scale(scale, scale);
+        ctx.translate(-200, -124);
+        ctx.fillStyle = palette.gold;
+        ctx.beginPath();
+        ctx.moveTo(200, 114);
+        ctx.quadraticCurveTo(209, 124, 200, 134);
+        ctx.quadraticCurveTo(191, 124, 200, 114);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function xSparkle(ctx, palette, cx, cy, s, alpha) {
+        if (s <= 0.3 || alpha <= 0.01) return;
+        ctx.save();
+        ctx.globalAlpha *= alpha;
+        ctx.fillStyle = palette.isLight ? palette.gold : '#FFF6D6';
+        const k = s * 0.16;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - s); ctx.lineTo(cx + k, cy - k);
+        ctx.lineTo(cx + s, cy); ctx.lineTo(cx + k, cy + k);
+        ctx.lineTo(cx, cy + s); ctx.lineTo(cx - k, cy + k);
+        ctx.lineTo(cx - s, cy); ctx.lineTo(cx - k, cy - k);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function xPenGlow(ctx, palette, p, strength) {
+        if (!p || strength <= 0.01) return;
+        const core = palette.isLight ? '74,14,23' : '255,246,214';
+        const mid = palette.isLight ? '212,175,55' : '244,219,132';
+        ctx.save();
+        const g = ctx.createRadialGradient(p[0], p[1], 0, p[0], p[1], 9);
+        g.addColorStop(0, `rgba(${core},${(0.95 * strength).toFixed(3)})`);
+        g.addColorStop(0.35, `rgba(${mid},${(0.55 * strength).toFixed(3)})`);
+        g.addColorStop(1, 'rgba(212,175,55,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(p[0], p[1], 9, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // Per-letter x positions; identical to drawSpacedCentered() at the final spacing.
+      function xLetterLayout(ctx, text, cx, spacing) {
+        const chars = text.split('');
+        const widths = chars.map(c => ctx.measureText(c).width);
+        const total = widths.reduce((a, b) => a + b, 0) + spacing * (chars.length - 1);
+        let x = cx - total / 2;
+        return chars.map((c, i) => {
+          const o = { ch: c, x, w: widths[i] };
+          x += widths[i] + spacing;
+          return o;
+        });
+      }
+
+      /* ---------------- 7. PETAL CASCADE ---------------- */
+      const X_FLIGHT = {
+        outerL: { dx: -190, dy: -30,  rot: -1.5, s0: 0.5, delay: 0.00, dur: 0.44 },
+        outerR: { dx: 190,  dy: -30,  rot: 1.5,  s0: 0.5, delay: 0.05, dur: 0.44 },
+        innerC: { dx: 0,    dy: 170,  rot: 0.7,  s0: 0.3, delay: 0.12, dur: 0.44 },
+        innerL: { dx: -120, dy: -150, rot: -2.2, s0: 0.3, delay: 0.18, dur: 0.44 },
+        innerR: { dx: 120,  dy: -150, rot: 2.2,  s0: 0.3, delay: 0.23, dur: 0.44 }
+      };
+
+      function xDrawFlyingPetal(ctx, palette, key, p) {
+        const def = X_PETALS[key], f = X_FLIGHT[key];
+        const q = subProg(p, f.delay, f.delay + f.dur);
+        if (q <= 0) return;
+        const draw = (qq, a) => {
+          const k = 1 - easeOutBack(qq);               // overshoots past 0 -> springy bounce
+          const sc = xLerp(f.s0, 1, easeOutCubic(qq));
+          ctx.save();
+          ctx.globalAlpha *= a;
+          ctx.translate(def.pivot[0] + f.dx * k, def.pivot[1] + f.dy * k);
+          ctx.rotate(f.rot * k);
+          ctx.scale(sc, sc);
+          ctx.translate(-def.pivot[0], -def.pivot[1]);
+          ctx.strokeStyle = def.c === 'ink' ? palette.ink : palette.gold;
+          ctx.lineWidth = def.lw;
+          xPetalPath(ctx, def);
+          ctx.stroke();
+          ctx.restore();
+        };
+        if (q < 1) {                                    // faint motion trail while travelling
+          [0.07, 0.14].forEach((d, i) => { if (q - d > 0) draw(q - d, 0.16 / (i + 1)); });
+        }
+        draw(q, clamp01(q * 4));
+      }
+
+      function drawCascadeEmblem(ctx, palette, p) {
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+
+        // soft pulse of light as the petals land
+        const gl = Math.sin(Math.PI * subProg(p, 0.28, 0.62));
+        if (gl > 0.01) {
+          const g = ctx.createRadialGradient(200, 178, 0, 200, 178, 120);
+          g.addColorStop(0, `rgba(212,175,55,${(0.2 * gl).toFixed(3)})`);
+          g.addColorStop(1, 'rgba(212,175,55,0)');
+          ctx.fillStyle = g;
+          ctx.fillRect(-200, -200, 800, 800);
+        }
+
+        xDrawFlyingPetal(ctx, palette, 'outerL', p);
+        xDrawFlyingPetal(ctx, palette, 'outerR', p);
+
+        // M grows like a stem: stems rise (with a little spring), then the V closes
+        if (p >= 0.72) {
+          xMStatic(ctx, palette, 4.5);
+        } else if (p >= 0.46) {
+          const s1 = easeOutBack(subProg(p, 0.46, 0.62));
+          const s2 = easeOutCubic(subProg(p, 0.60, 0.72));
+          ctx.strokeStyle = palette.ink;
+          ctx.lineWidth = 4.5;
+          ctx.beginPath();
+          ctx.moveTo(162, 176); ctx.lineTo(162, 176 - 66 * Math.max(0, s1));
+          ctx.moveTo(238, 176); ctx.lineTo(238, 176 - 66 * Math.max(0, s1));
+          ctx.stroke();
+          if (s2 > 0) {
+            ctx.beginPath();
+            ctx.moveTo(162, 110); ctx.lineTo(xLerp(162, 200, s2), xLerp(110, 146, s2));
+            ctx.moveTo(238, 110); ctx.lineTo(xLerp(238, 200, s2), xLerp(110, 146, s2));
+            ctx.stroke();
+          }
+        }
+
+        xDrawFlyingPetal(ctx, palette, 'innerC', p);
+        xDrawFlyingPetal(ctx, palette, 'innerL', p);
+        xDrawFlyingPetal(ctx, palette, 'innerR', p);
+
+        // tilak drops in with a bounce, then twinkles
+        const tq = subProg(p, 0.68, 0.84);
+        if (tq > 0) {
+          xTilak(ctx, palette, -34 * (1 - xEaseOutBounce(tq)), xLerp(0.5, 1, easeOutBack(tq)), clamp01(tq * 5));
+        }
+        const sq = subProg(p, 0.76, 0.94);
+        if (sq > 0 && sq < 1) xSparkle(ctx, palette, 200, 124, 15 * Math.sin(Math.PI * sq), Math.sin(Math.PI * sq));
+      }
+
+      function xCascadeText(ctx, palette, p) {
+        ctx.save();
+        ctx.textBaseline = 'alphabetic';
+
+        // gold rule: hand-drawn wobble that straightens as it draws out
+        const rp = easeOutCubic(subProg(p, 0.64, 0.84));
+        if (rp > 0.001) {
+          ctx.strokeStyle = palette.gold;
+          ctx.lineWidth = 1.6;
+          ctx.lineCap = 'butt';            // same flat ends as the static logo's rule
+          ctx.beginPath();
+          const n = 28, x1 = 146 + 108 * rp;
+          for (let i = 0; i <= n; i++) {
+            const t = i / n;
+            const x = 146 + (x1 - 146) * t;
+            const y = 214 + Math.sin(t * 8) * 2.6 * (1 - rp);
+            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+        }
+
+        // MALAR'S: each letter bounces up in turn
+        ctx.font = "600 28px 'Cinzel', Georgia, serif";
+        xLetterLayout(ctx, "MALAR'S", 200, 6.5).forEach((g, i) => {
+          const q = subProg(p, 0.68 + i * 0.024, 0.68 + i * 0.024 + 0.17);
+          if (q <= 0) return;
+          ctx.save();
+          ctx.globalAlpha = clamp01(q * 3);
+          ctx.fillStyle = palette.ink;
+          ctx.fillText(g.ch, g.x, 248 + (1 - easeOutBack(q)) * 24);
+          ctx.restore();
+        });
+
+        // MAKEOVER • STUDIO: unfurls from a curve onto the baseline
+        ctx.font = "500 9.8px 'Montserrat', sans-serif";
+        const fp = easeOutCubic(subProg(p, 0.80, 0.995));
+        if (fp > 0.01) {
+          const L2 = xLetterLayout(ctx, 'MAKEOVER • STUDIO', 200, 3.3);
+          const half = (L2.length - 1) / 2;
+          L2.forEach((g, i) => {
+            const u = (i - half) / half;                       // -1 .. 1 across the line
+            const px = 200 + (g.x + g.w / 2 - 200) * (1 + 0.38 * (1 - fp));
+            const py = 274 + 40 * (1 - fp) * (1 - u * u);
+            ctx.save();
+            ctx.globalAlpha = clamp01(fp * 2.2);
+            ctx.translate(px, py);
+            ctx.rotate(-u * 0.55 * (1 - fp));
+            ctx.fillStyle = palette.goldText || palette.gold;
+            ctx.fillText(g.ch, -g.w / 2, 0);
+            ctx.restore();
+          });
+        }
+        ctx.restore();
+      }
+
+      /* ---------------- 8. GOLDEN CONSTRUCTION ---------------- */
+      function drawConstructEmblem(ctx, palette, p) {
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        const guideRGB = palette.isLight ? '74,14,23' : '244,219,132';
+
+        // A. construction guides draw themselves, then fade
+        const gAlpha = 1 - xEaseInOut(subProg(p, 0.62, 0.80));
+        if (gAlpha > 0.01) {
+          ctx.save();
+          const grow = easeOutCubic(subProg(p, 0.0, 0.2));
+          ctx.strokeStyle = `rgba(${guideRGB},${(0.5 * gAlpha).toFixed(3)})`;
+          ctx.lineWidth = 0.9;
+          ctx.beginPath();
+          ctx.moveTo(200, 165 - 140 * grow); ctx.lineTo(200, 165 + 140 * grow);           // axis
+          [[198, 150], [110, 90], [176, 90]].forEach(([y, h]) => {                         // base / cap lines
+            ctx.moveTo(200 - h * grow, y); ctx.lineTo(200 + h * grow, y);
+          });
+          const k = 2.6 * grow;                                                            // the M's V-arms, extended
+          ctx.moveTo(200 - 38 * k, 146 - 36 * k); ctx.lineTo(200 + 38 * k, 146 + 36 * k);
+          ctx.moveTo(200 + 38 * k, 146 - 36 * k); ctx.lineTo(200 - 38 * k, 146 + 36 * k);
+          ctx.stroke();
+          [[52, 0.04, 0.26], [84, 0.10, 0.34]].forEach(([r, a, b]) => {                    // golden-ratio rings (84/52 = 1.615)
+            const t = xEaseInOut(subProg(p, a, b));
+            if (t > 0) {
+              ctx.beginPath();
+              ctx.arc(200, 165, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * t);
+              ctx.stroke();
+            }
+          });
+          [[162, 110], [238, 110], [200, 146], [162, 176], [238, 176], [124, 172], [276, 172],
+           [200, 198], [200, 156], [174, 165], [226, 165], [200, 114], [200, 134]].forEach((n, i) => {
+            const q = subProg(p, 0.10 + i * 0.012, 0.22 + i * 0.012);
+            if (q <= 0) return;
+            ctx.fillStyle = `rgba(${guideRGB},${(0.9 * gAlpha).toFixed(3)})`;
+            ctx.beginPath();
+            ctx.arc(n[0], n[1], Math.max(0, 2.1 * easeOutBack(q)), 0, Math.PI * 2);
+            ctx.fill();
+            if (q < 1) {
+              ctx.strokeStyle = `rgba(${guideRGB},${(0.5 * (1 - q) * gAlpha).toFixed(3)})`;
+              ctx.beginPath();
+              ctx.arc(n[0], n[1], 2.1 + 8 * q, 0, Math.PI * 2);
+              ctx.stroke();
+            }
+          });
+          ctx.restore();
+        }
+
+        // B. a pen traces the logo as hairlines, which then swell to final weight
+        const wk = xEaseInOut(subProg(p, 0.56, 0.74));
+        const lwOf = fin => xLerp(1.5, fin, wk);
+        const heads = [];
+        const trace = (key, a, b) => {
+          const q = subProg(p, a, b);
+          if (q <= 0) return;
+          const def = X_PETALS[key];
+          ctx.strokeStyle = def.c === 'ink' ? palette.ink : palette.gold;
+          ctx.lineWidth = lwOf(def.lw);
+          if (q >= 1) { xPetalPath(ctx, def); ctx.stroke(); }
+          else heads.push(xStrokePartial(ctx, xPetalPoints(def), xEaseInOut(q)));
+        };
+        trace('outerL', 0.20, 0.36);
+        trace('outerR', 0.20, 0.36);
+        const mq = subProg(p, 0.34, 0.50);
+        if (mq >= 1) {
+          xMStatic(ctx, palette, lwOf(4.5));
+        } else if (mq > 0) {
+          ctx.strokeStyle = palette.ink;
+          ctx.lineWidth = lwOf(4.5);
+          heads.push(xStrokePartial(ctx, M_POINTS.map(m => [m.x, m.y]), xEaseInOut(mq)));
+        }
+        trace('innerC', 0.46, 0.57);
+        trace('innerL', 0.50, 0.61);
+        trace('innerR', 0.50, 0.61);
+        heads.forEach(h => xPenGlow(ctx, palette, h, 1));
+
+        const tq = subProg(p, 0.60, 0.70);
+        if (tq > 0) xTilak(ctx, palette, 0, xLerp(0.4, 1, easeOutBack(tq)), clamp01(tq * 4));
+        const sq = subProg(p, 0.66, 0.82);
+        if (sq > 0 && sq < 1) xSparkle(ctx, palette, 200, 124, 15 * Math.sin(Math.PI * sq), Math.sin(Math.PI * sq));
+
+        // C. light sweep glints across the finished emblem (re-strokes the same shapes)
+        const sw = subProg(p, 0.72, 0.88);
+        if (sw > 0 && sw < 1) {
+          const sx = xLerp(90, 310, xEaseInOut(sw));
+          // narrow slanted band (axis ~21 degrees off horizontal); golden on light themes, cream on dark
+          const g = ctx.createLinearGradient(sx - 21, 152, sx + 21, 168);
+          const gc = palette.isLight ? '236,205,110' : '255,246,214';
+          g.addColorStop(0, `rgba(${gc},0)`);
+          g.addColorStop(0.5, `rgba(${gc},0.88)`);
+          g.addColorStop(1, `rgba(${gc},0)`);
+          ctx.save();
+          ctx.strokeStyle = g;
+          Object.keys(X_PETALS).forEach(key => {
+            ctx.lineWidth = X_PETALS[key].lw;
+            xPetalPath(ctx, X_PETALS[key]);
+            ctx.stroke();
+          });
+          ctx.lineWidth = 4.5;
+          ctx.beginPath();
+          ctx.moveTo(M_POINTS[0].x, M_POINTS[0].y);
+          for (let i = 1; i < M_POINTS.length; i++) ctx.lineTo(M_POINTS[i].x, M_POINTS[i].y);
+          ctx.stroke();
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.moveTo(200, 114);
+          ctx.quadraticCurveTo(209, 124, 200, 134);
+          ctx.quadraticCurveTo(191, 124, 200, 114);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+
+      function xConstructText(ctx, palette, p) {
+        ctx.save();
+        ctx.textBaseline = 'alphabetic';
+
+        const rp = easeOutCubic(subProg(p, 0.72, 0.86));
+        if (rp > 0.001) {
+          ctx.strokeStyle = palette.gold;
+          ctx.lineWidth = 1.6;
+          ctx.lineCap = 'butt';
+          ctx.beginPath();
+          ctx.moveTo(200 - 54 * rp, 214);
+          ctx.lineTo(200 + 54 * rp, 214);
+          ctx.stroke();
+        }
+
+        // wordmark "tracks in": wide letter-spacing tightens to the brand spacing while fading up
+        const e1 = easeOutCubic(subProg(p, 0.74, 0.96));
+        if (e1 > 0.005) {
+          ctx.font = "600 28px 'Cinzel', Georgia, serif";
+          ctx.save();
+          ctx.globalAlpha = e1;
+          ctx.fillStyle = palette.ink;
+          xLetterLayout(ctx, "MALAR'S", 200, xLerp(16, 6.5, e1)).forEach(g => ctx.fillText(g.ch, g.x, 248 + (1 - e1) * 6));
+          ctx.restore();
+        }
+        const e2 = easeOutCubic(subProg(p, 0.82, 1.0));
+        if (e2 > 0.005) {
+          ctx.font = "500 9.8px 'Montserrat', sans-serif";
+          ctx.save();
+          ctx.globalAlpha = e2;
+          ctx.fillStyle = palette.goldText || palette.gold;
+          xLetterLayout(ctx, 'MAKEOVER • STUDIO', 200, xLerp(9, 3.3, e2)).forEach(g => ctx.fillText(g.ch, g.x, 274 + (1 - e2) * 4));
+          ctx.restore();
+        }
+        ctx.restore();
+      }
+
+      /* ---------------- shared scene wrapper (all three lockups) ---------------- */
+      function renderExtraMotion(ctx, opts) {
+        const { themeKey, lockup, motion, progress, drawBg, skipBgFill } = opts;
+        const palette = THEMES[themeKey] || THEMES.maroon;
+        const p = clamp01(progress);
+
+        ctx.clearRect(0, 0, LOGICAL_SIZE, LOGICAL_SIZE);
+        const fillBg = drawBg ? palette.bg : null;
+        if (fillBg && !skipBgFill) {
+          ctx.fillStyle = fillBg;
+          ctx.fillRect(0, 0, LOGICAL_SIZE, LOGICAL_SIZE);
+          const radGrad = ctx.createRadialGradient(200, 170, 15, 200, 195, 225);
+          radGrad.addColorStop(0, palette.isLight ? '#FFFFFF' : (palette.bgGlow || fillBg));
+          radGrad.addColorStop(1, fillBg);
+          ctx.fillStyle = radGrad;
+          ctx.fillRect(0, 0, LOGICAL_SIZE, LOGICAL_SIZE);
+        }
+
+        const emblem = motion === 'cascade' ? drawCascadeEmblem : drawConstructEmblem;
+        const verticalText = motion === 'cascade' ? xCascadeText : xConstructText;
+
+        ctx.save();
+        if (lockup === 'vertical') {
+          emblem(ctx, palette, p);
+          verticalText(ctx, palette, p);
+        } else if (lockup === 'horizontal') {
+          ctx.font = "600 24px 'Cinzel', Georgia, serif";
+          const mainW = measureSpacedText(ctx, "MALAR'S", 5.0);
+          ctx.font = "500 8.8px 'Montserrat', sans-serif";
+          const subW = measureSpacedText(ctx, 'MAKEOVER • STUDIO', 2.6);
+          const textBlockW = Math.max(mainW, subW);
+          const iconScale = 0.74;
+          const iconVisualW = 152 * iconScale;
+          const totalW = iconVisualW + 14 + 16 + textBlockW;
+          const startX = (LOGICAL_SIZE - totalW) / 2;
+          const midY = 200;
+          const dividerX = startX + iconVisualW + 14;
+          const textStartX = dividerX + 16;
+
+          ctx.save();
+          ctx.translate(startX + iconVisualW / 2, midY);
+          ctx.scale(iconScale, iconScale);
+          ctx.translate(-200, -156);
+          emblem(ctx, palette, p);
+          ctx.restore();
+
+          const tp = easeOutCubic(subProg(p, 0.72, 0.98));
+          if (tp > 0.01) {
+            const slideX = (1 - tp) * 8;
+            ctx.save();
+            ctx.textBaseline = 'alphabetic';
+            ctx.globalAlpha = tp * 0.7;
+            ctx.strokeStyle = palette.gold;
+            ctx.lineWidth = 1.4;
+            ctx.beginPath();
+            ctx.moveTo(dividerX, midY - 24);
+            ctx.lineTo(dividerX, midY + 24);
+            ctx.stroke();
+            ctx.globalAlpha = tp;
+            ctx.fillStyle = palette.ink;
+            ctx.font = "600 24px 'Cinzel', Georgia, serif";
+            drawSpacedLeft(ctx, "MALAR'S", textStartX + slideX, midY - 3, 5.0);
+            ctx.strokeStyle = palette.gold;
+            ctx.lineWidth = 1.3;
+            ctx.beginPath();
+            ctx.moveTo(textStartX + slideX, midY + 6);
+            ctx.lineTo(textStartX + slideX + textBlockW * tp, midY + 6);
+            ctx.stroke();
+            ctx.fillStyle = palette.goldText || palette.gold;
+            ctx.font = "500 8.8px 'Montserrat', sans-serif";
+            drawSpacedLeft(ctx, 'MAKEOVER • STUDIO', textStartX + slideX, midY + 21, 2.6);
+            ctx.restore();
+          }
+        } else {
+          ctx.translate(200, 200);
+          ctx.scale(1.45, 1.45);
+          ctx.translate(-200, -156);
+          emblem(ctx, palette, p);
+        }
+        ctx.restore();
+
+        return { bg: fillBg, palette };
       }
 
       /* ----------------------------------------------------------------------
