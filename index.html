@@ -367,6 +367,18 @@
       background-color: var(--velvet-noir);
     }
 
+    .stage-card.theme-emerald {
+      background-color: #0B3B2E;
+    }
+
+    .stage-card.theme-champagne {
+      background-color: #F5E6E4;
+    }
+
+    .stage-card.theme-vermilion {
+      background-color: #7A161E;
+    }
+
     .stage-card.theme-transparent {
       background-color: #EFECE6;
       background-image:
@@ -460,6 +472,9 @@
     .sw-maroon { background: #4A0E17; }
     .sw-ivory { background: #FAF6F0; }
     .sw-noir { background: #141011; }
+    .sw-emerald { background: #0B3B2E; }
+    .sw-champagne { background: #F5E6E4; }
+    .sw-vermilion { background: #7A161E; }
     .sw-transparent {
       background:
         linear-gradient(45deg, #ccc 25%, transparent 25%),
@@ -1018,7 +1033,17 @@
             <button class="theme-swatch sw-maroon active" data-theme="maroon" title="Royal Maroon (#4A0E17)" aria-label="Royal Maroon"></button>
             <button class="theme-swatch sw-ivory" data-theme="ivory" title="Bridal Ivory (#FAF6F0)" aria-label="Bridal Ivory"></button>
             <button class="theme-swatch sw-noir" data-theme="noir" title="Velvet Noir (#141011)" aria-label="Velvet Noir"></button>
+            <button class="theme-swatch sw-emerald" data-theme="emerald" title="Emerald Silk (#0B3B2E)" aria-label="Emerald Silk"></button>
+            <button class="theme-swatch sw-champagne" data-theme="champagne" title="Rose Champagne (#F5E6E4)" aria-label="Rose Champagne"></button>
+            <button class="theme-swatch sw-vermilion" data-theme="vermilion" title="Temple Vermilion (#7A161E)" aria-label="Temple Vermilion"></button>
             <button class="theme-swatch sw-transparent" data-theme="transparent" title="Transparent Alpha" aria-label="Transparent"></button>
+          </div>
+
+          <div class="dock-cluster">
+            <span class="dock-tag">M Style</span>
+            <button class="dock-pill active" data-mstyle="editorial" title="Haute-Couture Editorial Serif M">Editorial Serif</button>
+            <button class="dock-pill" data-mstyle="lotus" title="Organic Curved Lotus-Arch M">Lotus Arch</button>
+            <button class="dock-pill" data-mstyle="architectural" title="Original Sharp Architectural M">Architectural</button>
           </div>
 
           <div class="dock-cluster">
@@ -1029,7 +1054,7 @@
           </div>
         </div>
 
-        <!-- Row 2: 6 Motion Presets + Replay + Quick Export Buttons -->
+        <!-- Row 2: 9 Motion Presets + Replay + Quick Export Buttons -->
         <div class="dock-row">
           <div class="dock-cluster">
             <span class="dock-tag">Motion</span>
@@ -1042,6 +1067,7 @@
               <option value="bloom">6. Soft Bloom</option>
               <option value="cascade">7. Petal Cascade</option>
               <option value="construct">8. Golden Construction</option>
+              <option value="grand">9. Signature Grand Reveal</option>
             </select>
             <button id="dockBtnReplay" class="dock-export-btn" title="Replay Animation">↻ Replay</button>
           </div>
@@ -1280,6 +1306,30 @@
             <div class="card-title">Velvet Noir</div>
             <div class="card-desc">RGB(20, 16, 17) • Luxury evening &amp; editorial backdrop.</div>
           </div>
+
+          <div class="sub-card" style="cursor:pointer;" onclick="copyColorHex('#0B3B2E')">
+            <div class="swatch-tile" style="background:#0B3B2E; color:#D4AF37;">
+              <span>#0B3B2E</span><span>COPY</span>
+            </div>
+            <div class="card-title">Emerald Silk</div>
+            <div class="card-desc">RGB(11, 59, 46) • Muhurtham &amp; festive Kanjeevaram bridal backdrop.</div>
+          </div>
+
+          <div class="sub-card" style="cursor:pointer;" onclick="copyColorHex('#F5E6E4')">
+            <div class="swatch-tile" style="background:#F5E6E4; color:#4A0E17;">
+              <span>#F5E6E4</span><span>COPY</span>
+            </div>
+            <div class="card-title">Rose Champagne</div>
+            <div class="card-desc">RGB(245, 230, 228) • Soft reception &amp; engagement blush surface.</div>
+          </div>
+
+          <div class="sub-card" style="cursor:pointer;" onclick="copyColorHex('#7A161E')">
+            <div class="swatch-tile" style="background:#7A161E; color:#F4DB84;">
+              <span>#7A161E</span><span>COPY</span>
+            </div>
+            <div class="card-title">Temple Vermilion</div>
+            <div class="card-desc">RGB(122, 22, 30) • Auspicious kumkum crimson for festive campaigns.</div>
+          </div>
         </div>
 
         <div class="ratio-bar-wrap">
@@ -1373,7 +1423,7 @@
           </div>
         </div>
 
-        <!-- 6 Interactive Motion Cards with "Preview in Studio" -->
+        <!-- 9 Interactive Motion Cards with "Preview in Studio" -->
         <div class="grid-3">
           <div class="sub-card">
             <div class="card-title" style="color:var(--gold-bright);">01. Organic Lotus Bounce</div>
@@ -1419,8 +1469,14 @@
 
           <div class="sub-card">
             <div class="card-title" style="color:var(--gold-bright);">08. Golden Construction</div>
-            <div class="card-desc">Golden-ratio guides draw themselves, a glowing pen traces the lotus and M as hairlines that swell to full weight, a light sweep glints across the gold, and the wordmark tracks in.</div>
+            <div class="card-desc">A glowing pen traces the lotus and M as delicate hairlines that swell to full weight, the tilak drops in with a sparkle, a light sweep glints across the gold, and the wordmark tracks in.</div>
             <button class="dock-export-btn" onclick="previewMotionInStudio('construct')">Preview in Studio →</button>
+          </div>
+
+          <div class="sub-card">
+            <div class="card-title" style="color:var(--gold-bright);">09. Signature Grand Reveal</div>
+            <div class="card-desc">Custom sequence: Golden Construction M &amp; Tilak sparkle &rarr; Petal Cascade (3 yellow/gold petals) &rarr; Organic Lotus Bounce (2 big white petals) &rarr; Organic Lotus Bounce Tilak &rarr; Royal Shimmer glow &rarr; Soft Bloom finale.</div>
+            <button class="dock-export-btn" onclick="previewMotionInStudio('grand')">Preview in Studio →</button>
           </div>
         </div>
 
@@ -1472,7 +1528,7 @@
   <div id="toastPill" class="toast-pill" role="status" aria-live="polite"></div>
 
   <!-- ========================================================================
-       APPLICATION SCRIPT — HIGH-DPI VECTOR ENGINE, 6 MOTIONS & EXPORTERS
+       APPLICATION SCRIPT — HIGH-DPI VECTOR ENGINE, 9 MOTIONS & EXPORTERS
        ======================================================================== -->
   <script>
     (function () {
@@ -1483,10 +1539,6 @@
          ---------------------------------------------------------------------- */
       const LOGICAL_SIZE = 400; // Canonical 400x400 coordinate space
 
-      // Single source of truth for the "M" monogram (canvas + SVG export).
-      // 76 wide x 66 tall. The stems end at y=176, which is exactly where the
-      // outer lotus petals' upper edge passes at x=162 / x=238, so the M
-      // lands ON the petals (no gap) instead of floating above them.
       const M_STEM_BOTTOM = 176;
       const M_POINTS = [
         { x: 162, y: M_STEM_BOTTOM },
@@ -1498,8 +1550,9 @@
 
       const state = {
         theme: 'maroon',        // 'maroon' | 'ivory' | 'noir' | 'transparent'
+        mStyle: 'editorial',    // 'editorial' | 'lotus' | 'architectural'
         lockup: 'vertical',     // 'vertical' | 'horizontal' | 'icon'
-        motion: 'organic',      // 'organic' | 'sketch' | 'precision' | 'luxury' | 'shimmer' | 'bloom'
+        motion: 'organic',      // 'organic' | 'sketch' | 'precision' | 'luxury' | 'shimmer' | 'bloom' | 'cascade' | 'construct' | 'grand'
         animStart: performance.now(),
         animDuration: 2600,
         reelAspect: '9:16',
@@ -1514,7 +1567,7 @@
           bgGlow: '#6B1623',
           ink: '#FAF6F0',         // Bridal Ivory for M, outer petals & MALAR'S
           gold: '#D4AF37',        // Imperial Gold for inner petals, tilak, rule & subtitle
-          goldText: '#D4AF37',    // Small gold text (same as gold on dark surfaces)
+          goldText: '#D4AF37',
           goldLight: '#F4DB84',
           isLight: false
         },
@@ -1524,7 +1577,7 @@
           bgGlow: '#FFFFFF',
           ink: '#4A0E17',         // Strict Royal Maroon on light surfaces (NEVER black)
           gold: '#D4AF37',
-          goldText: '#8A6A12',    // Deep Gold: ~4.7:1 on ivory for small text (Imperial Gold is only ~1.9:1)
+          goldText: '#8A6A12',
           goldLight: '#E8C54E',
           isLight: true
         },
@@ -1538,17 +1591,74 @@
           goldLight: '#F4DB84',
           isLight: false
         },
+        emerald: {
+          name: 'Emerald Silk',
+          bg: '#0B3B2E',
+          bgGlow: '#135946',
+          ink: '#FAF6F0',
+          gold: '#D4AF37',
+          goldText: '#D4AF37',
+          goldLight: '#F4DB84',
+          isLight: false
+        },
+        champagne: {
+          name: 'Rose Champagne',
+          bg: '#F5E6E4',
+          bgGlow: '#FFF9F8',
+          ink: '#4A0E17',
+          gold: '#D4AF37',
+          goldText: '#8A6A12',
+          goldLight: '#E8C54E',
+          isLight: true
+        },
+        vermilion: {
+          name: 'Temple Vermilion',
+          bg: '#7A161E',
+          bgGlow: '#9C1F2A',
+          ink: '#FAF6F0',
+          gold: '#F4DB84',
+          goldText: '#F4DB84',
+          goldLight: '#FFF2B2',
+          isLight: false
+        },
         transparent: {
           name: 'Transparent',
           bg: null,
           bgGlow: null,
-          ink: '#4A0E17',         // Strict Royal Maroon + Imperial Gold
+          ink: '#4A0E17',
           gold: '#D4AF37',
           goldText: '#8A6A12',
           goldLight: '#E8C54E',
           isLight: true
         }
       };
+
+      const STORAGE_KEY = 'malars_brand_studio_prefs_v1';
+
+      function loadPrefs() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+          if (saved.theme && THEMES[saved.theme]) state.theme = saved.theme;
+          if (['editorial', 'lotus', 'architectural'].includes(saved.mStyle)) state.mStyle = saved.mStyle;
+          if (['vertical', 'horizontal', 'icon'].includes(saved.lockup)) state.lockup = saved.lockup;
+          if (saved.motion && MOTION_LABELS[saved.motion]) state.motion = saved.motion;
+          if (['9:16', '1:1', '16:9'].includes(saved.reelAspect)) state.reelAspect = saved.reelAspect;
+          if ([3.0, 4.5, 6.5].includes(saved.reelDuration)) state.reelDuration = saved.reelDuration;
+        } catch (_) {}
+      }
+
+      function savePrefs() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            theme: state.theme,
+            mStyle: state.mStyle,
+            lockup: state.lockup,
+            motion: state.motion,
+            reelAspect: state.reelAspect,
+            reelDuration: state.reelDuration
+          }));
+        } catch (_) {}
+      }
 
       const MOTION_LABELS = {
         organic: '1. ORGANIC LOTUS BOUNCE',
@@ -1624,20 +1734,157 @@
 
       /* ----------------------------------------------------------------------
          5. EXACT M-LOTUS & TILAK GEOMETRY RENDERER (CANONICAL 400x400 SPACE)
-            - Vertical Stack centered at (200, 175):
-              * Tilak Jewel: y = 114 .. 134 (snug above V-notch at y=154)
-              * Architectural M: peaks at (150, 132) & (250, 132),
-                central V-notch at (200, 154), stems terminating cleanly on
-                the outer lotus petals at y = 164.
-              * Outer 2 Cradling Lotus Petals: base (200, 198) sweeping to
-                wing tips at (124, 172) & (276, 172).
-              * Inner 3 Imperial Gold Lotus Petals: base (200, 198) rising to
-                center tip (200, 156) and side tips (174, 165) & (226, 165).
-            - Vertical Typography:
-              * Gold divider rule at y = 214
-              * "MALAR'S" in Cinzel 600 at y = 248
-              * "MAKEOVER • STUDIO" in Montserrat 500 at y = 274
          ---------------------------------------------------------------------- */
+      function getMPathPoints(mStyle) {
+        if (mStyle === 'lotus') {
+          const pts = [];
+          for (let i = 0; i <= 16; i++) {
+            const t = i / 16, u = 1 - t;
+            pts.push({
+              x: u*u*158 + 2*u*t*155 + t*t*164,
+              y: u*u*176 + 2*u*t*140 + t*t*112
+            });
+          }
+          for (let i = 1; i <= 16; i++) {
+            const t = i / 16, u = 1 - t;
+            pts.push({
+              x: u*u*164 + 2*u*t*184 + t*t*200,
+              y: u*u*112 + 2*u*t*122 + t*t*146
+            });
+          }
+          for (let i = 1; i <= 16; i++) {
+            const t = i / 16, u = 1 - t;
+            pts.push({
+              x: u*u*200 + 2*u*t*216 + t*t*236,
+              y: u*u*146 + 2*u*t*122 + t*t*112
+            });
+          }
+          for (let i = 1; i <= 16; i++) {
+            const t = i / 16, u = 1 - t;
+            pts.push({
+              x: u*u*236 + 2*u*t*245 + t*t*242,
+              y: u*u*112 + 2*u*t*140 + t*t*176
+            });
+          }
+          return pts;
+        }
+        return M_POINTS;
+      }
+
+      function drawStyledM(ctx, palette, mProg, lw, sketchMode, mStyle) {
+        const style = mStyle || state.mStyle || 'editorial';
+        const p = clamp01(mProg);
+        if (p <= 0.01) return null;
+
+        ctx.save();
+        ctx.strokeStyle = palette.ink;
+        ctx.fillStyle = palette.ink;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        if (sketchMode) ctx.setLineDash([5, 2]);
+
+        if (style === 'editorial' && !sketchMode) {
+          const scaleRatio = lw / 4.5;
+          const thinW = 2.6 * scaleRatio;
+          const thickW = 5.4 * scaleRatio;
+          let head = null;
+
+          const s1 = clamp01(p / 0.28);
+          if (s1 > 0) {
+            const y1 = 176 + (111 - 176) * s1;
+            ctx.lineWidth = thinW * 1.15;
+            ctx.beginPath();
+            ctx.moveTo(162, 176);
+            ctx.lineTo(162, y1);
+            ctx.stroke();
+            head = [162, y1];
+          }
+
+          const s2 = clamp01((p - 0.28) / 0.26);
+          if (s2 > 0) {
+            const x2 = 162 + (200 - 162) * s2;
+            const y2 = 111 + (147 - 111) * s2;
+            ctx.lineWidth = thickW;
+            ctx.beginPath();
+            ctx.moveTo(162, 111);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+            head = [x2, y2];
+          }
+
+          const s3 = clamp01((p - 0.54) / 0.22);
+          if (s3 > 0) {
+            const x3 = 200 + (238 - 200) * s3;
+            const y3 = 147 + (111 - 147) * s3;
+            ctx.lineWidth = thinW;
+            ctx.beginPath();
+            ctx.moveTo(200, 147);
+            ctx.lineTo(x3, y3);
+            ctx.stroke();
+            head = [x3, y3];
+          }
+
+          const s4 = clamp01((p - 0.76) / 0.24);
+          if (s4 > 0) {
+            const y4 = 111 + (176 - 111) * s4;
+            ctx.lineWidth = thickW;
+            ctx.beginPath();
+            ctx.moveTo(238, 111);
+            ctx.lineTo(238, y4);
+            ctx.stroke();
+            head = [238, y4];
+          }
+
+          const serifP = clamp01((p - 0.85) / 0.15);
+          if (serifP > 0.01) {
+            ctx.lineWidth = 1.8 * scaleRatio;
+            const sw = 5.5 * serifP;
+            ctx.beginPath();
+            ctx.moveTo(162 - sw, 111); ctx.lineTo(162 + sw * 0.7, 111);
+            ctx.moveTo(238 - sw * 0.7, 111); ctx.lineTo(238 + sw, 111);
+            ctx.moveTo(162 - sw * 0.85, 176); ctx.lineTo(162 + sw * 0.85, 176);
+            ctx.moveTo(238 - sw * 0.85, 176); ctx.lineTo(238 + sw * 0.85, 176);
+            ctx.stroke();
+          }
+
+          ctx.restore();
+          return head;
+        }
+
+        const pts = getMPathPoints(style);
+        ctx.lineWidth = lw;
+        const segs = [];
+        let total = 0;
+        for (let i = 0; i < pts.length - 1; i++) {
+          const d = Math.hypot(pts[i + 1].x - pts[i].x, pts[i + 1].y - pts[i].y);
+          segs.push(d);
+          total += d;
+        }
+        let rem = total * p;
+        let head = [pts[0].x, pts[0].y];
+        ctx.beginPath();
+        ctx.moveTo(pts[0].x, pts[0].y);
+        for (let i = 0; i < segs.length; i++) {
+          if (rem <= 0) break;
+          if (rem >= segs[i]) {
+            ctx.lineTo(pts[i + 1].x, pts[i + 1].y);
+            rem -= segs[i];
+            head = [pts[i + 1].x, pts[i + 1].y];
+          } else {
+            const r = rem / segs[i];
+            head = [
+              pts[i].x + (pts[i + 1].x - pts[i].x) * r,
+              pts[i].y + (pts[i + 1].y - pts[i].y) * r
+            ];
+            ctx.lineTo(head[0], head[1]);
+            rem = 0;
+          }
+        }
+        ctx.stroke();
+        ctx.restore();
+        return head;
+      }
+
       function drawEmblemGeometry(ctx, opts) {
         const {
           palette,
@@ -1645,19 +1892,18 @@
           outerLotusProg = 1,
           innerLotusProg = 1,
           tilakProg = 1,
-          petalSpread = 0,     // Extra outward arc offset for Organic Lotus Bounce
-          tilakDropY = 0,      // Vertical drop offset for Tilak jewel
-          rippleProg = 0,      // Golden ripple ring progress (0..1)
-          sketchMode = false,  // Pencil sketch stroke effect
-          bevelFlash = 0,      // Extruded 3D gold bevel intensity (0..1)
-          shimmerSweep = -1    // Specular gold sweep position
+          petalSpread = 0,
+          tilakDropY = 0,
+          rippleProg = 0,
+          sketchMode = false,
+          bevelFlash = 0,
+          shimmerSweep = -1
         } = opts;
 
         ctx.save();
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
 
-        // Golden Ripple Ring (for Organic Lotus Bounce)
         if (rippleProg > 0.01 && rippleProg < 0.99) {
           ctx.save();
           ctx.strokeStyle = palette.gold;
@@ -1669,7 +1915,6 @@
           ctx.restore();
         }
 
-        // Optional 3D Extruded Gold Bevel Shadow (for Sketch-to-Grid Prism)
         if (bevelFlash > 0.01) {
           ctx.save();
           ctx.translate(4.5 * bevelFlash, 4.5 * bevelFlash);
@@ -1693,7 +1938,6 @@
           const s = clamp01(outerLotusProg);
           const spreadAngle = petalSpread * 0.38;
 
-          // Left outer petal
           ctx.save();
           ctx.translate(200, 198);
           ctx.rotate(-spreadAngle);
@@ -1706,7 +1950,6 @@
           ctx.stroke();
           ctx.restore();
 
-          // Right outer petal
           ctx.save();
           ctx.translate(200, 198);
           ctx.rotate(spreadAngle);
@@ -1722,42 +1965,9 @@
           ctx.restore();
         }
 
-        // 2. ARCHITECTURAL GEOMETRIC "M" MONOGRAM (Stems terminate cleanly at y=164)
+        // 2. "M" MONOGRAM
         if (mProg > 0.01) {
-          ctx.save();
-          ctx.strokeStyle = palette.ink;
-          ctx.lineWidth = sketchMode ? 2.4 : 4.5;
-          if (sketchMode) ctx.setLineDash([5, 2]);
-
-          const pts = M_POINTS;
-
-          const segs = [];
-          let total = 0;
-          for (let i = 0; i < pts.length - 1; i++) {
-            const d = Math.hypot(pts[i + 1].x - pts[i].x, pts[i + 1].y - pts[i].y);
-            segs.push(d);
-            total += d;
-          }
-
-          let rem = total * clamp01(mProg);
-          ctx.beginPath();
-          ctx.moveTo(pts[0].x, pts[0].y);
-          for (let i = 0; i < segs.length; i++) {
-            if (rem <= 0) break;
-            if (rem >= segs[i]) {
-              ctx.lineTo(pts[i + 1].x, pts[i + 1].y);
-              rem -= segs[i];
-            } else {
-              const r = rem / segs[i];
-              ctx.lineTo(
-                pts[i].x + (pts[i + 1].x - pts[i].x) * r,
-                pts[i].y + (pts[i + 1].y - pts[i].y) * r
-              );
-              rem = 0;
-            }
-          }
-          ctx.stroke();
-          ctx.restore();
+          drawStyledM(ctx, palette, mProg, sketchMode ? 2.4 : 4.5, sketchMode, state.mStyle);
         }
 
         // 3. INNER 3 UPRIGHT IMPERIAL GOLD LOTUS PETALS
@@ -1770,7 +1980,6 @@
           const s = clamp01(innerLotusProg);
           const innerSpread = petalSpread * 0.28;
 
-          // Center upright petal
           ctx.save();
           ctx.translate(200, 198);
           ctx.scale(0.82 + 0.18 * s, s);
@@ -1782,7 +1991,6 @@
           ctx.stroke();
           ctx.restore();
 
-          // Left inner petal
           ctx.save();
           ctx.translate(200, 198);
           ctx.rotate(-innerSpread);
@@ -1795,7 +2003,6 @@
           ctx.stroke();
           ctx.restore();
 
-          // Right inner petal
           ctx.save();
           ctx.translate(200, 198);
           ctx.rotate(innerSpread);
@@ -1811,7 +2018,7 @@
           ctx.restore();
         }
 
-        // 4. IMPERIAL GOLD TILAK JEWEL (Snug above V-notch at y=114..134)
+        // 4. IMPERIAL GOLD TILAK JEWEL
         if (tilakProg > 0.01) {
           ctx.save();
           const s = clamp01(tilakProg);
@@ -1843,14 +2050,36 @@
         // 5. SPECULAR GOLD SHIMMER SWEEP
         if (shimmerSweep >= -0.4 && shimmerSweep <= 1.4) {
           ctx.save();
-          const sx = 120 + shimmerSweep * 160;
-          const grad = ctx.createLinearGradient(sx - 28, 110, sx + 28, 205);
-          grad.addColorStop(0, 'rgba(255,255,255,0)');
-          grad.addColorStop(0.5, 'rgba(255, 245, 200, 0.42)');
-          grad.addColorStop(1, 'rgba(255,255,255,0)');
+          const sx = 110 + shimmerSweep * 180;
+          const gc = palette.isLight ? '236, 205, 110' : '255, 246, 214';
+          const grad = ctx.createLinearGradient(sx - 24, 145, sx + 24, 175);
+          grad.addColorStop(0, `rgba(${gc}, 0)`);
+          grad.addColorStop(0.5, `rgba(${gc}, 0.85)`);
+          grad.addColorStop(1, `rgba(${gc}, 0)`);
+
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = 4.5;
+          ctx.beginPath();
+          ctx.moveTo(200, 198); ctx.quadraticCurveTo(152, 197, 124, 172); ctx.quadraticCurveTo(164, 168, 200, 198);
+          ctx.moveTo(200, 198); ctx.quadraticCurveTo(248, 197, 276, 172); ctx.quadraticCurveTo(236, 168, 200, 198);
+          ctx.moveTo(M_POINTS[0].x, M_POINTS[0].y);
+          for (let i = 1; i < M_POINTS.length; i++) ctx.lineTo(M_POINTS[i].x, M_POINTS[i].y);
+          ctx.stroke();
+
+          ctx.lineWidth = 4.2;
+          ctx.beginPath();
+          ctx.moveTo(200, 198); ctx.quadraticCurveTo(187, 175, 200, 156); ctx.quadraticCurveTo(213, 175, 200, 198);
+          ctx.moveTo(200, 198); ctx.quadraticCurveTo(173, 188, 174, 165); ctx.quadraticCurveTo(195, 172, 200, 198);
+          ctx.moveTo(200, 198); ctx.quadraticCurveTo(227, 188, 226, 165); ctx.quadraticCurveTo(205, 172, 200, 198);
+          ctx.stroke();
+
           ctx.fillStyle = grad;
-          ctx.globalCompositeOperation = 'source-atop';
-          ctx.fillRect(115, 108, 170, 105);
+          ctx.beginPath();
+          ctx.moveTo(200, 114);
+          ctx.quadraticCurveTo(209, 124, 200, 134);
+          ctx.quadraticCurveTo(191, 124, 200, 114);
+          ctx.closePath();
+          ctx.fill();
           ctx.restore();
         }
 
@@ -1896,7 +2125,6 @@
         ctx.globalAlpha *= p;
         const liftY = (1 - p) * 8;
 
-        // Thin Imperial Gold horizontal rule at y=214
         const halfW = 54 * p;
         ctx.strokeStyle = palette.gold;
         ctx.lineWidth = 1.6;
@@ -1905,13 +2133,11 @@
         ctx.lineTo(200 + halfW, 214);
         ctx.stroke();
 
-        // "MALAR'S" in Cinzel 600 at y=248
         ctx.fillStyle = palette.ink;
         ctx.font = "600 28px 'Cinzel', Georgia, serif";
         ctx.textBaseline = 'alphabetic';
         drawSpacedCentered(ctx, "MALAR'S", 200, 248 + liftY, 6.5);
 
-        // "MAKEOVER • STUDIO" in Montserrat 500 at y=274
         ctx.fillStyle = palette.goldText || palette.gold;
         ctx.font = "500 9.8px 'Montserrat', sans-serif";
         drawSpacedCentered(ctx, "MAKEOVER • STUDIO", 200, 274 + liftY, 3.3);
@@ -1920,7 +2146,7 @@
       }
 
       /* ----------------------------------------------------------------------
-         7. FULL SCENE COMPOSITION (ALL 6 MOTION GRAPHICS PRESETS)
+         7. FULL SCENE COMPOSITION (ALL 9 MOTION GRAPHICS PRESETS)
          ---------------------------------------------------------------------- */
       function renderBrandScene(ctx, opts) {
         const {
@@ -1930,18 +2156,16 @@
           progress = 1,
           elapsedMs = 3000,
           drawBg = true,
-          skipBgFill = false   // true = don't paint the square background (reel exporter paints the full frame itself)
+          skipBgFill = false
         } = opts;
 
         let activePalette = THEMES[themeKey] || THEMES.maroon;
         let bgOverride = null;
 
-        // Presets 7 & 8 are self-contained (see section 7b)
-        if (motion === 'cascade' || motion === 'construct') {
+        if (motion === 'cascade' || motion === 'construct' || motion === 'grand') {
           return renderExtraMotion(ctx, { themeKey, lockup, motion, progress, elapsedMs, drawBg, skipBgFill });
         }
 
-        // Motion choreography parameters
         let mProg = 1;
         let outerLotusProg = 1;
         let innerLotusProg = 1;
@@ -1959,7 +2183,6 @@
         let guideBeamProg = 0;
 
         if (motion === 'organic') {
-          // 1. Organic Lotus Bounce: Tilak drops with ripple ring, 5 petals burst along spring arcs, M draws in
           const tDrop = subProg(progress, 0.0, 0.34);
           tilakProg = easeOutBack(tDrop);
           tilakDropY = (1 - easeOutElastic(tDrop)) * -26;
@@ -1973,9 +2196,7 @@
           mProg = easeOutCubic(subProg(progress, 0.42, 0.82));
           textProg = easeOutCubic(subProg(progress, 0.56, 0.98));
         } else if (motion === 'sketch') {
-          // 2. Sketch-to-Grid Prism (NO curvy flourish line above tilak)
           if (progress < 0.32) {
-            // Phase A: Royal Maroon & Gold pencil sketch on textured Bridal Ivory paper
             const sp = subProg(progress, 0.0, 0.32);
             activePalette = THEMES.ivory;
             bgOverride = '#FAF6F0';
@@ -1986,7 +2207,6 @@
             tilakProg = easeOutCubic(subProg(sp, 0.65, 1.0));
             textProg = 0;
           } else if (progress < 0.66) {
-            // Phase B: Dark burgundy architectural blueprint grid + 3D gold bevel flash
             const gp = subProg(progress, 0.32, 0.66);
             activePalette = THEMES.maroon;
             bgOverride = '#360910';
@@ -1994,16 +2214,13 @@
             bevelFlash = Math.sin(gp * Math.PI);
             textProg = easeOutCubic(subProg(gp, 0.35, 1.0));
           } else {
-            // Phase C: Clean resolve onto selected theme & pure M-Lotus & Tilak logo
             const rp = subProg(progress, 0.66, 1.0);
             showBlueprintGrid = rp < 0.45;
             bevelFlash = (1 - rp) * 0.25;
             textProg = 1;
           }
         } else if (motion === 'precision') {
-          // 3. Precision Guide & Brand Showcase
           if (progress < 0.38) {
-            // Phase A: Sweeping architectural gold guide beams carve out geometry
             const gp = subProg(progress, 0.0, 0.38);
             guideBeamProg = gp;
             showBlueprintGrid = true;
@@ -2013,36 +2230,41 @@
             tilakProg = easeOutBack(subProg(gp, 0.60, 1.0));
             textProg = easeOutCubic(subProg(gp, 0.55, 1.0));
           } else if (progress < 0.54) {
-            // Cut 1: Royal Maroon velvet gold-foil showcase
+            const cp = subProg(progress, 0.38, 0.54);
             activePalette = THEMES.maroon;
             bgOverride = '#4A0E17';
+            globalScale = 1 + (1 - easeOutCubic(cp)) * 0.035;
           } else if (progress < 0.70) {
-            // Cut 2: Bridal Ivory studio card with Maroon & Gold ink
+            const cp = subProg(progress, 0.54, 0.70);
             activePalette = THEMES.ivory;
             bgOverride = '#FAF6F0';
+            globalScale = 1 + (1 - easeOutCubic(cp)) * 0.035;
           } else if (progress < 0.84) {
-            // Cut 3: Velvet Noir gold medallion cut
+            const cp = subProg(progress, 0.70, 0.84);
             activePalette = THEMES.noir;
             bgOverride = '#141011';
+            globalScale = 1 + (1 - easeOutCubic(cp)) * 0.035;
           } else {
-            // Final resolve onto active user theme
+            const cp = subProg(progress, 0.84, 1.0);
             activePalette = THEMES[themeKey] || THEMES.maroon;
+            globalScale = 1 + (1 - easeOutCubic(cp)) * 0.025;
           }
         } else if (motion === 'luxury') {
-          // 4. Luxury Reveal: Sequential vector stroke trace + smooth wordmark rise
           mProg = easeOutCubic(subProg(progress, 0.0, 0.44));
           outerLotusProg = easeOutCubic(subProg(progress, 0.24, 0.62));
           innerLotusProg = easeOutCubic(subProg(progress, 0.38, 0.76));
           tilakProg = easeOutBack(subProg(progress, 0.54, 0.86));
           textProg = easeOutCubic(subProg(progress, 0.48, 0.98));
         } else if (motion === 'shimmer') {
-          // 5. Royal Shimmer: Specular gold aura sweep
-          const p = easeOutCubic(subProg(progress, 0.0, 0.55));
-          globalAlpha = p;
-          const cycle = (elapsedMs % 3000) / 3000;
-          shimmerSweep = cycle * 2 - 0.5;
+          const fadeIn = easeOutCubic(subProg(progress, 0.0, 0.35));
+          globalAlpha = fadeIn;
+          globalScale = 0.96 + 0.04 * fadeIn;
+          textProg = easeOutCubic(subProg(progress, 0.15, 0.55));
+          if (progress > 0.25 && progress < 0.98) {
+            const sweepT = subProg(progress, 0.25, 0.98);
+            shimmerSweep = -0.3 + sweepT * 1.6;
+          }
         } else if (motion === 'bloom') {
-          // 6. Soft Bloom: Gentle scale breath & opacity blossom
           const p = easeOutBack(subProg(progress, 0.0, 0.76));
           globalScale = 0.76 + 0.24 * p;
           globalAlpha = clamp01(progress * 2.4);
@@ -2051,10 +2273,8 @@
           textProg = easeOutCubic(subProg(progress, 0.36, 0.98));
         }
 
-        // Clear 400x400 logical stage
         ctx.clearRect(0, 0, LOGICAL_SIZE, LOGICAL_SIZE);
 
-        // Background fill (when enabled)
         const fillBg = bgOverride || (drawBg ? activePalette.bg : null);
         if (fillBg && !skipBgFill) {
           ctx.fillStyle = fillBg;
@@ -2067,17 +2287,14 @@
           ctx.fillRect(0, 0, LOGICAL_SIZE, LOGICAL_SIZE);
         }
 
-        // Architectural Blueprint Grid / Beams
         if (showBlueprintGrid) {
           drawBlueprintOverlay(ctx, activePalette.gold, guideBeamProg);
         }
 
-        // Render Lockup
         ctx.save();
         ctx.globalAlpha = globalAlpha;
 
         if (lockup === 'vertical') {
-          // Centered at (200, 175)
           ctx.save();
           ctx.translate(200, 165);
           ctx.scale(globalScale, globalScale);
@@ -2099,7 +2316,6 @@
 
           drawVerticalStackText(ctx, activePalette, textProg);
         } else if (lockup === 'horizontal') {
-          // Measure both text lines dynamically so the entire horizontal lockup is mathematically centered
           ctx.font = "600 24px 'Cinzel', Georgia, serif";
           const mainW = measureSpacedText(ctx, "MALAR'S", 5.0);
           ctx.font = "500 8.8px 'Montserrat', sans-serif";
@@ -2113,14 +2329,11 @@
           const totalLockupW = iconVisualW + gapToDivider + gapFromDivider + textBlockW;
           const startX = (LOGICAL_SIZE - totalLockupW) / 2;
 
-          // Optical vertical midline y = 200
           const midY = 200;
           const iconCenterX = startX + iconVisualW / 2;
           const dividerX = startX + iconVisualW + gapToDivider;
           const textStartX = dividerX + gapFromDivider;
 
-          // Draw scaled emblem centered on (iconCenterX, midY)
-          // Canonical emblem spans y=114..198 (visual midpoint y=156)
           ctx.save();
           ctx.translate(iconCenterX, midY);
           ctx.scale(iconScale, iconScale);
@@ -2140,7 +2353,6 @@
           });
           ctx.restore();
 
-          // Draw vertical gold divider & 2-line wordmark optically centered on midY = 200
           if (textProg > 0.01) {
             ctx.save();
             const tp = clamp01(textProg);
@@ -2156,13 +2368,11 @@
             ctx.stroke();
             ctx.globalAlpha = tp * globalAlpha;
 
-            // Line 1: MALAR'S
             ctx.fillStyle = activePalette.ink;
             ctx.font = "600 24px 'Cinzel', Georgia, serif";
             ctx.textBaseline = 'alphabetic';
             drawSpacedLeft(ctx, "MALAR'S", textStartX + slideX, midY - 3, 5.0);
 
-            // Thin gold rule
             ctx.strokeStyle = activePalette.gold;
             ctx.lineWidth = 1.3;
             ctx.beginPath();
@@ -2170,7 +2380,6 @@
             ctx.lineTo(textStartX + slideX + textBlockW * tp, midY + 6);
             ctx.stroke();
 
-            // Line 2: MAKEOVER • STUDIO
             ctx.fillStyle = activePalette.goldText || activePalette.gold;
             ctx.font = "500 8.8px 'Montserrat', sans-serif";
             drawSpacedLeft(ctx, "MAKEOVER • STUDIO", textStartX + slideX, midY + 21, 2.6);
@@ -2178,7 +2387,6 @@
             ctx.restore();
           }
         } else if (lockup === 'icon') {
-          // Standalone Emblem Mark centered at (200, 200)
           const iconScale = 1.45 * globalScale;
           ctx.save();
           ctx.translate(200, 200);
@@ -2202,7 +2410,6 @@
 
         ctx.restore();
 
-        // Tell callers which background/palette this frame used (reel exporter needs it)
         return { bg: fillBg, palette: activePalette };
       }
 
@@ -2213,7 +2420,6 @@
         ctx.lineWidth = 0.85;
         ctx.setLineDash([3, 3]);
 
-        // Axis & golden proportion circles
         ctx.beginPath();
         ctx.moveTo(200, 28);
         ctx.lineTo(200, 372);
@@ -2224,7 +2430,6 @@
         ctx.arc(200, 165, 84, 0, Math.PI * 2);
         ctx.stroke();
 
-        // Diagonal construction beams for Precision Guide preset
         if (beamProg > 0.01) {
           ctx.setLineDash([]);
           ctx.globalAlpha = 0.35 * (1 - beamProg * 0.4);
@@ -2241,28 +2446,17 @@
       }
 
       /* ----------------------------------------------------------------------
-         7b. EXTRA MOTION PRESETS
-             7. PETAL CASCADE  (petals fly in separately, bounce, M grows like a stem,
-                                tilak drops + sparkles, letters bounce up, subtitle unfurls
-                                from a curve)
-             8. GOLDEN CONSTRUCTION (golden-ratio guides draw themselves, pen traces the
-                                logo, hairlines thicken to final weight, light sweep,
-                                wordmark tracks in)
-             Self-contained: they only READ shared helpers (THEMES, M_POINTS, easing,
-             measureSpacedText). Presets 1-6 are not touched. renderBrandScene() hands
-             these two motions to renderExtraMotion() at its very top, and the final
-             frame of both is identical to the static logo.
+         7b. EXTRA MOTION PRESETS (7. CASCADE, 8. CONSTRUCT, 9. GRAND REVEAL)
          ---------------------------------------------------------------------- */
-      const EXTRA_MOTION_MS = { cascade: 4200, construct: 4600 };
+      const EXTRA_MOTION_MS = { cascade: 4200, construct: 4600, grand: 4800 };
 
-      // The live stage plays these two a little longer than the 2.6s default.
-      // (An accessor keeps the original animDuration line untouched.)
       Object.defineProperty(state, 'animDuration', {
         configurable: true,
         get() { return EXTRA_MOTION_MS[state.motion] || 2600; }
       });
       MOTION_LABELS.cascade = '7. PETAL CASCADE';
       MOTION_LABELS.construct = '8. GOLDEN CONSTRUCTION';
+      MOTION_LABELS.grand = '9. SIGNATURE GRAND REVEAL';
 
       const xLerp = (a, b, t) => a + (b - a) * t;
 
@@ -2278,8 +2472,6 @@
         return n1 * (t -= 2.625 / d1) * t + 0.984375;
       }
 
-      // Canonical emblem curves: identical numbers to drawEmblemGeometry().
-      // q = [x0, y0, cx, cy, x1, y1] quadratic segments; pivot = visual centre for rotation.
       const X_PETALS = {
         outerL: { c: 'ink',  lw: 4.5, pivot: [162, 183], q: [[200, 198, 152, 197, 124, 172], [124, 172, 164, 168, 200, 198]] },
         outerR: { c: 'ink',  lw: 4.5, pivot: [238, 183], q: [[200, 198, 248, 197, 276, 172], [276, 172, 236, 168, 200, 198]] },
@@ -2305,7 +2497,6 @@
         return pts;
       }
 
-      // Strokes the first `frac` (0..1) of a polyline by length. Returns the pen-head point.
       function xStrokePartial(ctx, pts, frac) {
         if (frac <= 0) return null;
         const lens = [];
@@ -2323,7 +2514,7 @@
           if (rem >= lens[i]) {
             ctx.lineTo(pts[i + 1][0], pts[i + 1][1]);
             rem -= lens[i];
-            head = pts[i + 1];
+            head = [pts[i + 1][0], pts[i + 1][1]];
           } else {
             const r = rem / lens[i];
             head = [pts[i][0] + (pts[i + 1][0] - pts[i][0]) * r, pts[i][1] + (pts[i + 1][1] - pts[i][1]) * r];
@@ -2336,12 +2527,7 @@
       }
 
       function xMStatic(ctx, palette, lw) {
-        ctx.strokeStyle = palette.ink;
-        ctx.lineWidth = lw;
-        ctx.beginPath();
-        ctx.moveTo(M_POINTS[0].x, M_POINTS[0].y);
-        for (let i = 1; i < M_POINTS.length; i++) ctx.lineTo(M_POINTS[i].x, M_POINTS[i].y);
-        ctx.stroke();
+        drawStyledM(ctx, palette, 1, lw, false, state.mStyle);
       }
 
       function xTilak(ctx, palette, ty, scale, alpha) {
@@ -2393,7 +2579,6 @@
         ctx.restore();
       }
 
-      // Per-letter x positions; identical to drawSpacedCentered() at the final spacing.
       function xLetterLayout(ctx, text, cx, spacing) {
         const chars = text.split('');
         const widths = chars.map(c => ctx.measureText(c).width);
@@ -2420,7 +2605,7 @@
         const q = subProg(p, f.delay, f.delay + f.dur);
         if (q <= 0) return;
         const draw = (qq, a) => {
-          const k = 1 - easeOutBack(qq);               // overshoots past 0 -> springy bounce
+          const k = 1 - easeOutBack(qq);
           const sc = xLerp(f.s0, 1, easeOutCubic(qq));
           ctx.save();
           ctx.globalAlpha *= a;
@@ -2434,7 +2619,7 @@
           ctx.stroke();
           ctx.restore();
         };
-        if (q < 1) {                                    // faint motion trail while travelling
+        if (q < 1) {
           [0.07, 0.14].forEach((d, i) => { if (q - d > 0) draw(q - d, 0.16 / (i + 1)); });
         }
         draw(q, clamp01(q * 4));
@@ -2444,7 +2629,6 @@
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
 
-        // soft pulse of light as the petals land
         const gl = Math.sin(Math.PI * subProg(p, 0.28, 0.62));
         if (gl > 0.01) {
           const g = ctx.createRadialGradient(200, 178, 0, 200, 178, 120);
@@ -2457,7 +2641,6 @@
         xDrawFlyingPetal(ctx, palette, 'outerL', p);
         xDrawFlyingPetal(ctx, palette, 'outerR', p);
 
-        // M grows like a stem: stems rise (with a little spring), then the V closes
         if (p >= 0.72) {
           xMStatic(ctx, palette, 4.5);
         } else if (p >= 0.46) {
@@ -2481,7 +2664,6 @@
         xDrawFlyingPetal(ctx, palette, 'innerL', p);
         xDrawFlyingPetal(ctx, palette, 'innerR', p);
 
-        // tilak drops in with a bounce, then twinkles
         const tq = subProg(p, 0.68, 0.84);
         if (tq > 0) {
           xTilak(ctx, palette, -34 * (1 - xEaseOutBounce(tq)), xLerp(0.5, 1, easeOutBack(tq)), clamp01(tq * 5));
@@ -2494,12 +2676,11 @@
         ctx.save();
         ctx.textBaseline = 'alphabetic';
 
-        // gold rule: hand-drawn wobble that straightens as it draws out
         const rp = easeOutCubic(subProg(p, 0.64, 0.84));
         if (rp > 0.001) {
           ctx.strokeStyle = palette.gold;
           ctx.lineWidth = 1.6;
-          ctx.lineCap = 'butt';            // same flat ends as the static logo's rule
+          ctx.lineCap = 'butt';
           ctx.beginPath();
           const n = 28, x1 = 146 + 108 * rp;
           for (let i = 0; i <= n; i++) {
@@ -2511,7 +2692,6 @@
           ctx.stroke();
         }
 
-        // MALAR'S: each letter bounces up in turn
         ctx.font = "600 28px 'Cinzel', Georgia, serif";
         xLetterLayout(ctx, "MALAR'S", 200, 6.5).forEach((g, i) => {
           const q = subProg(p, 0.68 + i * 0.024, 0.68 + i * 0.024 + 0.17);
@@ -2523,14 +2703,13 @@
           ctx.restore();
         });
 
-        // MAKEOVER • STUDIO: unfurls from a curve onto the baseline
         ctx.font = "500 9.8px 'Montserrat', sans-serif";
         const fp = easeOutCubic(subProg(p, 0.80, 0.995));
         if (fp > 0.01) {
           const L2 = xLetterLayout(ctx, 'MAKEOVER • STUDIO', 200, 3.3);
           const half = (L2.length - 1) / 2;
           L2.forEach((g, i) => {
-            const u = (i - half) / half;                       // -1 .. 1 across the line
+            const u = (i - half) / half;
             const px = 200 + (g.x + g.w / 2 - 200) * (1 + 0.38 * (1 - fp));
             const py = 274 + 40 * (1 - fp) * (1 - u * u);
             ctx.save();
@@ -2549,51 +2728,7 @@
       function drawConstructEmblem(ctx, palette, p) {
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
-        const guideRGB = palette.isLight ? '74,14,23' : '244,219,132';
 
-        // A. construction guides draw themselves, then fade
-        const gAlpha = 1 - xEaseInOut(subProg(p, 0.62, 0.80));
-        if (gAlpha > 0.01) {
-          ctx.save();
-          const grow = easeOutCubic(subProg(p, 0.0, 0.2));
-          ctx.strokeStyle = `rgba(${guideRGB},${(0.5 * gAlpha).toFixed(3)})`;
-          ctx.lineWidth = 0.9;
-          ctx.beginPath();
-          ctx.moveTo(200, 165 - 140 * grow); ctx.lineTo(200, 165 + 140 * grow);           // axis
-          [[198, 150], [110, 90], [176, 90]].forEach(([y, h]) => {                         // base / cap lines
-            ctx.moveTo(200 - h * grow, y); ctx.lineTo(200 + h * grow, y);
-          });
-          const k = 2.6 * grow;                                                            // the M's V-arms, extended
-          ctx.moveTo(200 - 38 * k, 146 - 36 * k); ctx.lineTo(200 + 38 * k, 146 + 36 * k);
-          ctx.moveTo(200 + 38 * k, 146 - 36 * k); ctx.lineTo(200 - 38 * k, 146 + 36 * k);
-          ctx.stroke();
-          [[52, 0.04, 0.26], [84, 0.10, 0.34]].forEach(([r, a, b]) => {                    // golden-ratio rings (84/52 = 1.615)
-            const t = xEaseInOut(subProg(p, a, b));
-            if (t > 0) {
-              ctx.beginPath();
-              ctx.arc(200, 165, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * t);
-              ctx.stroke();
-            }
-          });
-          [[162, 110], [238, 110], [200, 146], [162, 176], [238, 176], [124, 172], [276, 172],
-           [200, 198], [200, 156], [174, 165], [226, 165], [200, 114], [200, 134]].forEach((n, i) => {
-            const q = subProg(p, 0.10 + i * 0.012, 0.22 + i * 0.012);
-            if (q <= 0) return;
-            ctx.fillStyle = `rgba(${guideRGB},${(0.9 * gAlpha).toFixed(3)})`;
-            ctx.beginPath();
-            ctx.arc(n[0], n[1], Math.max(0, 2.1 * easeOutBack(q)), 0, Math.PI * 2);
-            ctx.fill();
-            if (q < 1) {
-              ctx.strokeStyle = `rgba(${guideRGB},${(0.5 * (1 - q) * gAlpha).toFixed(3)})`;
-              ctx.beginPath();
-              ctx.arc(n[0], n[1], 2.1 + 8 * q, 0, Math.PI * 2);
-              ctx.stroke();
-            }
-          });
-          ctx.restore();
-        }
-
-        // B. a pen traces the logo as hairlines, which then swell to final weight
         const wk = xEaseInOut(subProg(p, 0.56, 0.74));
         const lwOf = fin => xLerp(1.5, fin, wk);
         const heads = [];
@@ -2612,9 +2747,7 @@
         if (mq >= 1) {
           xMStatic(ctx, palette, lwOf(4.5));
         } else if (mq > 0) {
-          ctx.strokeStyle = palette.ink;
-          ctx.lineWidth = lwOf(4.5);
-          heads.push(xStrokePartial(ctx, M_POINTS.map(m => [m.x, m.y]), xEaseInOut(mq)));
+          heads.push(drawStyledM(ctx, palette, xEaseInOut(mq), lwOf(4.5), false, state.mStyle));
         }
         trace('innerC', 0.46, 0.57);
         trace('innerL', 0.50, 0.61);
@@ -2626,11 +2759,9 @@
         const sq = subProg(p, 0.66, 0.82);
         if (sq > 0 && sq < 1) xSparkle(ctx, palette, 200, 124, 15 * Math.sin(Math.PI * sq), Math.sin(Math.PI * sq));
 
-        // C. light sweep glints across the finished emblem (re-strokes the same shapes)
         const sw = subProg(p, 0.72, 0.88);
         if (sw > 0 && sw < 1) {
           const sx = xLerp(90, 310, xEaseInOut(sw));
-          // narrow slanted band (axis ~21 degrees off horizontal); golden on light themes, cream on dark
           const g = ctx.createLinearGradient(sx - 21, 152, sx + 21, 168);
           const gc = palette.isLight ? '236,205,110' : '255,246,214';
           g.addColorStop(0, `rgba(${gc},0)`);
@@ -2674,7 +2805,6 @@
           ctx.stroke();
         }
 
-        // wordmark "tracks in": wide letter-spacing tightens to the brand spacing while fading up
         const e1 = easeOutCubic(subProg(p, 0.74, 0.96));
         if (e1 > 0.005) {
           ctx.font = "600 28px 'Cinzel', Georgia, serif";
@@ -2696,6 +2826,195 @@
         ctx.restore();
       }
 
+      /* ---------------- 9. SIGNATURE GRAND REVEAL ----------------
+         Exact Requested Sequence:
+         1) (Golden Construction) M letter & sparkle of Tilak effect  [0.00 -> 0.22]
+         2) (Petal Cascade) 3 Small Yellow/Gold petals (innerC/L/R)    [0.20 -> 0.44]
+         3) (Organic Lotus Bounce) 2 Big White/Ivory petals (outerL/R) [0.42 -> 0.62]
+         4) (Organic Lotus Bounce) Tilak drop & golden ripple ring     [0.60 -> 0.78]
+         5) Royal Shimmer (glow) specular metallic sweep across mark   [0.74 -> 0.90]
+         6) Soft Bloom (bloom) gentle scale breath & wordmark reveal   [0.84 -> 1.00]
+         ---------------------------------------------------------- */
+      function drawGrandEmblem(ctx, palette, p) {
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+
+        // Step 6: Soft Bloom (gentle scale breath & luminous halo at the finale)
+        const bloomP = easeOutBack(subProg(p, 0.84, 1.0));
+        const bloomScale = p > 0.84 ? (0.955 + 0.045 * bloomP) : 1;
+
+        ctx.save();
+        if (p > 0.84) {
+          ctx.translate(200, 165);
+          ctx.scale(bloomScale, bloomScale);
+          ctx.translate(-200, -165);
+        }
+
+        // Ambient golden glow during Royal Shimmer & Soft Bloom (Steps 5 & 6)
+        const glowAmt = Math.sin(Math.PI * subProg(p, 0.72, 1.0));
+        if (glowAmt > 0.01) {
+          const rg = ctx.createRadialGradient(200, 165, 6, 200, 165, 130);
+          rg.addColorStop(0, `rgba(212,175,55,${(0.28 * glowAmt).toFixed(3)})`);
+          rg.addColorStop(1, 'rgba(212,175,55,0)');
+          ctx.fillStyle = rg;
+          ctx.fillRect(-100, -100, 600, 600);
+        }
+
+        // Step 1: (Golden Construction) M letter pen trace & sparkle of Tilak effect (0.00 -> 0.22)
+        const mq = subProg(p, 0.0, 0.16);
+        const wk = xEaseInOut(subProg(p, 0.12, 0.22));
+        const mLw = xLerp(1.5, 4.5, wk);
+        if (mq >= 1) {
+          xMStatic(ctx, palette, mLw);
+        } else if (mq > 0) {
+          const head = drawStyledM(ctx, palette, xEaseInOut(mq), mLw, false, state.mStyle);
+          xPenGlow(ctx, palette, head, 1);
+        }
+
+        const initSpkQ = subProg(p, 0.08, 0.24);
+        if (initSpkQ > 0 && initSpkQ < 1) {
+          const spkEnv = Math.sin(Math.PI * initSpkQ);
+          xSparkle(ctx, palette, 200, 124, 18 * spkEnv, spkEnv);
+        }
+
+        // Step 2: (Petal Cascade) 3 Small Yellow/Gold petals (innerC, innerL, innerR) (0.20 -> 0.44)
+        const petalLandingGlow = Math.sin(Math.PI * subProg(p, 0.26, 0.46));
+        if (petalLandingGlow > 0.01) {
+          const pg = ctx.createRadialGradient(200, 178, 0, 200, 178, 120);
+          pg.addColorStop(0, `rgba(212,175,55,${(0.24 * petalLandingGlow).toFixed(3)})`);
+          pg.addColorStop(1, 'rgba(212,175,55,0)');
+          ctx.fillStyle = pg;
+          ctx.fillRect(-200, -200, 800, 800);
+        }
+
+        const goldFlights = {
+          innerC: { dx: 0,    dy: 170,  rot: 0.7,  s0: 0.3, delay: 0.20, dur: 0.20 },
+          innerL: { dx: -120, dy: -150, rot: -2.2, s0: 0.3, delay: 0.23, dur: 0.20 },
+          innerR: { dx: 120,  dy: -150, rot: 2.2,  s0: 0.3, delay: 0.26, dur: 0.20 }
+        };
+        ['innerC', 'innerL', 'innerR'].forEach(key => {
+          const def = X_PETALS[key], f = goldFlights[key];
+          const q = subProg(p, f.delay, f.delay + f.dur);
+          if (q <= 0) return;
+          const drawP = (qq, a) => {
+            const k = 1 - easeOutBack(qq);
+            const sc = xLerp(f.s0, 1, easeOutCubic(qq));
+            ctx.save();
+            ctx.globalAlpha *= a;
+            ctx.translate(def.pivot[0] + f.dx * k, def.pivot[1] + f.dy * k);
+            ctx.rotate(f.rot * k);
+            ctx.scale(sc, sc);
+            ctx.translate(-def.pivot[0], -def.pivot[1]);
+            ctx.strokeStyle = palette.gold;
+            ctx.lineWidth = def.lw;
+            xPetalPath(ctx, def);
+            ctx.stroke();
+            ctx.restore();
+          };
+          if (q < 1) {
+            [0.07, 0.14].forEach((d, i) => { if (q - d > 0) drawP(q - d, 0.16 / (i + 1)); });
+          }
+          drawP(q, clamp01(q * 4));
+        });
+
+        // Step 3: (Organic Lotus Bounce) 2 Big White/Ivory petals spring outward along arcs (0.42 -> 0.62)
+        const outerP = subProg(p, 0.42, 0.62);
+        if (outerP > 0.01) {
+          ctx.save();
+          ctx.strokeStyle = palette.ink;
+          ctx.lineWidth = 4.5;
+          const s = clamp01(easeOutBack(outerP));
+          const spreadAngle = Math.sin(outerP * Math.PI) * 0.55 * 0.38;
+
+          // Left outer petal
+          ctx.save();
+          ctx.translate(200, 198);
+          ctx.rotate(-spreadAngle);
+          ctx.scale(0.84 + 0.16 * s, s);
+          ctx.translate(-200, -198);
+          ctx.beginPath();
+          ctx.moveTo(200, 198);
+          ctx.quadraticCurveTo(152, 197, 124, 172);
+          ctx.quadraticCurveTo(164, 168, 200, 198);
+          ctx.stroke();
+          ctx.restore();
+
+          // Right outer petal
+          ctx.save();
+          ctx.translate(200, 198);
+          ctx.rotate(spreadAngle);
+          ctx.scale(0.84 + 0.16 * s, s);
+          ctx.translate(-200, -198);
+          ctx.beginPath();
+          ctx.moveTo(200, 198);
+          ctx.quadraticCurveTo(248, 197, 276, 172);
+          ctx.quadraticCurveTo(236, 168, 200, 198);
+          ctx.stroke();
+          ctx.restore();
+
+          ctx.restore();
+        }
+
+        // Step 4: (Organic Lotus Bounce) Tilak drop & expanding golden ripple ring (0.60 -> 0.78)
+        const tDrop = subProg(p, 0.60, 0.76);
+        if (tDrop > 0) {
+          const tScale = easeOutBack(tDrop);
+          const tDropY = (1 - easeOutElastic(tDrop)) * -26;
+          xTilak(ctx, palette, tDropY, tScale, clamp01(tDrop * 5));
+        }
+        const rippleP = subProg(p, 0.66, 0.84);
+        if (rippleP > 0.01 && rippleP < 0.99) {
+          ctx.save();
+          ctx.strokeStyle = palette.gold;
+          ctx.globalAlpha = (1 - rippleP) * 0.74;
+          ctx.lineWidth = 1.7 * (1 - rippleP * 0.45);
+          ctx.beginPath();
+          ctx.arc(200, 124, 6 + rippleP * 46, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        // Step 5: Royal Shimmer (glow) — Metallic specular light sweep across the emblem (0.74 -> 0.90)
+        const sw = subProg(p, 0.74, 0.90);
+        if (sw > 0 && sw < 1) {
+          const sx = xLerp(90, 310, xEaseInOut(sw));
+          const g = ctx.createLinearGradient(sx - 22, 150, sx + 22, 170);
+          const gc = palette.isLight ? '236,205,110' : '255,246,214';
+          g.addColorStop(0, `rgba(${gc},0)`);
+          g.addColorStop(0.5, `rgba(${gc},0.92)`);
+          g.addColorStop(1, `rgba(${gc},0)`);
+          ctx.save();
+          ctx.strokeStyle = g;
+          Object.keys(X_PETALS).forEach(key => {
+            ctx.lineWidth = X_PETALS[key].lw;
+            xPetalPath(ctx, X_PETALS[key]);
+            ctx.stroke();
+          });
+          ctx.lineWidth = 4.5;
+          ctx.beginPath();
+          ctx.moveTo(M_POINTS[0].x, M_POINTS[0].y);
+          for (let i = 1; i < M_POINTS.length; i++) ctx.lineTo(M_POINTS[i].x, M_POINTS[i].y);
+          ctx.stroke();
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.moveTo(200, 114);
+          ctx.quadraticCurveTo(209, 124, 200, 134);
+          ctx.quadraticCurveTo(191, 124, 200, 114);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        }
+
+        ctx.restore();
+      }
+
+      function xGrandText(ctx, palette, p) {
+        // Step 6: Soft Bloom typography entrance (0.84 -> 1.00)
+        const tp = easeOutCubic(subProg(p, 0.84, 1.0));
+        if (tp <= 0.01) return;
+        drawVerticalStackText(ctx, palette, tp);
+      }
+
       /* ---------------- shared scene wrapper (all three lockups) ---------------- */
       function renderExtraMotion(ctx, opts) {
         const { themeKey, lockup, motion, progress, drawBg, skipBgFill } = opts;
@@ -2714,8 +3033,16 @@
           ctx.fillRect(0, 0, LOGICAL_SIZE, LOGICAL_SIZE);
         }
 
-        const emblem = motion === 'cascade' ? drawCascadeEmblem : drawConstructEmblem;
-        const verticalText = motion === 'cascade' ? xCascadeText : xConstructText;
+        const emblem = motion === 'cascade'
+          ? drawCascadeEmblem
+          : motion === 'construct'
+            ? drawConstructEmblem
+            : drawGrandEmblem;
+        const verticalText = motion === 'cascade'
+          ? xCascadeText
+          : motion === 'construct'
+            ? xConstructText
+            : xGrandText;
 
         ctx.save();
         if (lockup === 'vertical') {
@@ -2742,7 +3069,7 @@
           emblem(ctx, palette, p);
           ctx.restore();
 
-          const tp = easeOutCubic(subProg(p, 0.72, 0.98));
+          const tp = easeOutCubic(subProg(p, 0.84, 1.0));
           if (tp > 0.01) {
             const slideX = (1 - tp) * 8;
             ctx.save();
@@ -2809,13 +3136,11 @@
          9. FULL BRAND KIT SPECIMEN CANVASES (3X RETINA)
          ---------------------------------------------------------------------- */
       function renderAllBrandKitCanvases() {
-        // 1. Section 01: Golden Ratio Construction Blueprint
         const bpEl = document.getElementById('blueprintCanvas');
         if (bpEl) {
           const ctx = setupRetinaCanvas(bpEl, LOGICAL_SIZE, LOGICAL_SIZE);
           ctx.clearRect(0, 0, 400, 400);
 
-          // Fine blueprint grid
           ctx.strokeStyle = 'rgba(212, 175, 55, 0.14)';
           ctx.lineWidth = 0.75;
           for (let g = 40; g <= 360; g += 20) {
@@ -2827,7 +3152,6 @@
             ctx.stroke();
           }
 
-          // Clear space 1X box & Golden Ratio 1.618 circles
           ctx.save();
           ctx.strokeStyle = '#D4AF37';
           ctx.lineWidth = 1;
@@ -2840,7 +3164,6 @@
           ctx.stroke();
           ctx.restore();
 
-          // Render Emblem centered at (200, 200)
           ctx.save();
           ctx.translate(200, 195);
           ctx.scale(1.22, 1.22);
@@ -2848,7 +3171,6 @@
           drawEmblemGeometry(ctx, { palette: THEMES.maroon });
           ctx.restore();
 
-          // Vertex anchor nodes
           const nodes = [
             [200, 144], [200, 168], [139, 166], [261, 166],
             [200, 193], [107, 214], [293, 214], [200, 246]
@@ -2866,7 +3188,6 @@
           drawSpacedCentered(ctx, "1.618 : 1 GOLDEN PROPORTION", 200, 336, 1.8);
         }
 
-        // 2. Section 02: 6 Lockup Specimens
         const lockupSpecs = [
           { id: 'kitLockupVertMaroon', lockup: 'vertical', theme: 'maroon' },
           { id: 'kitLockupVertIvory', lockup: 'vertical', theme: 'ivory' },
@@ -2888,7 +3209,6 @@
           });
         });
 
-        // 3. Section 03: Square & Circle Frame Specimens
         drawFrameCanvas('frameSqMaroon', 'square', 'maroon');
         drawFrameCanvas('frameSqIvory', 'square', 'ivory');
         drawFrameCanvas('frameCirMaroon', 'circle', 'maroon');
@@ -2911,7 +3231,6 @@
             progress: 1,
             drawBg: true
           });
-          // Double Imperial Gold hairline border
           ctx.strokeStyle = palette.gold;
           ctx.lineWidth = 1.4;
           ctx.strokeRect(18, 18, 364, 364);
@@ -2919,7 +3238,6 @@
           ctx.strokeRect(25, 25, 350, 350);
           ctx.globalAlpha = 1;
         } else {
-          // Circular DP badge
           ctx.save();
           ctx.beginPath();
           ctx.arc(200, 200, 174, 0, Math.PI * 2);
@@ -2934,7 +3252,6 @@
           });
           ctx.restore();
 
-          // Concentric gold rings
           ctx.strokeStyle = palette.gold;
           ctx.lineWidth = 2.4;
           ctx.beginPath();
@@ -2964,19 +3281,8 @@
         setTimeout(() => URL.revokeObjectURL(url), 4000);
       }
 
-      /* ----------------------------------------------------------------------
-         OUTLINED LOGO TEXT FOR SVG EXPORT
-         Glyph outlines for "MALAR'S" (Cinzel SemiBold) and "MAKEOVER • STUDIO"
-         (Montserrat Medium) are embedded below (font units, 1000/em), so downloaded
-         SVGs contain real shapes instead of live text. They look identical on any
-         computer, printer or design app, with no fonts installed.
-         Fonts: Cinzel and Montserrat, SIL Open Font License 1.1.
-         If you ever change the wordmark text, regenerate this table.
-         ---------------------------------------------------------------------- */
       const OUTLINE_FONTS = {"cinzel":{"upm":1000,"g":{"'":{"a":190,"d":"M54 700 149 714Q150 695 145.5 664Q141 633 129.5 600.5Q118 568 97.5 540.5Q77 513 45 500L33 505Q46 549 51.5 579Q57 609 57.5 636.5Q58 664 54 700Z"},"A":{"a":715,"d":"M356 718 645 68Q660 38 683 25Q707 10 730 10H738V0H451V10H460Q479 10 494 27Q508 42 499 70L444 212H197L141 73Q133 53 138 39Q143 25 155 17.5Q167 10 179 10H188V0H-22V10H-13Q10 10 35 25Q56 37 71 65L302 596Q304 600 310.5 615.5Q317 631 325.5 651Q334 671 340 689.5Q346 708 347 718ZM323 521 213 250H429Z"},"L":{"a":598,"d":"M582 190 532 0H48V10H61Q87 10 105.5 28.5Q124 47 125 73V627Q124 653 105.5 671.5Q87 690 61 690H48V700H324V690H311Q285 690 266.5 671.5Q248 653 247 627V39H381Q432 39 469 57.5Q506 76 531 110.5Q556 145 572 190Z"},"M":{"a":946,"d":"M767 714H776L859 73Q864 43 884.5 26.5Q905 10 932 10H948V0H675V9H690Q707 9 718 22.5Q729 36 729 52V57L688 456L493 90L484 73Q475 55 466 30Q457 5 456 -18H446L190 453L149 57V52Q149 36 160.5 22.5Q172 9 188 9H203V0H-1V10H15Q42 10 63 26.5Q84 43 88 73L168 714H178L477 176Z"},"R":{"a":724,"d":"M127 73V627Q126 653 107.5 671.5Q89 690 63 690H50V700H369Q414 700 454.5 689Q495 678 526 655Q557 632 574.5 596.5Q592 561 592 512Q592 468 573 425Q554 382 517 353.5Q480 325 426 321Q453 312 477.5 287.5Q502 263 518 239Q519 238 530.5 220.5Q542 203 559 178Q576 153 594.5 128Q613 103 627 86Q649 60 667.5 43.5Q686 27 707 18.5Q728 10 755 10V0H672Q620 0 579.5 11Q539 22 509 44Q479 66 457 99Q451 108 440 126.5Q429 145 416 168Q403 191 390.5 212.5Q378 234 369.5 251Q361 268 358 275Q342 304 323 322Q304 340 282 342V352Q284 352 295 351.5Q306 351 320 352Q347 353 374.5 362Q402 371 424 395.5Q446 420 456 464Q458 473 460 487Q462 501 461 516Q458 586 425 622Q392 658 341 660Q322 661 301 660.5Q280 660 265 660H249V73Q249 47 268 28.5Q287 10 313 10H325V0H50V10H63Q89 10 107.5 28.5Q126 47 127 73Z"},"S":{"a":544,"d":"M268 714Q287 714 313 712Q339 710 366 707Q375 705 384 704H443L442 683H441L434 565H424Q424 616 387.5 646Q351 676 293 676Q235 676 200.5 646Q166 616 165 573Q163 548 179.5 524.5Q196 501 224 481L417 338Q458 311 477 272.5Q496 234 494 186Q491 94 427.5 40Q364 -14 255 -14Q218 -14 179.5 -7.5Q141 -1 109 12.5Q77 26 58 45Q52 65 53 93.5Q54 122 61 152.5Q68 183 78 204H87Q83 153 104 111.5Q125 70 165.5 46.5Q206 23 261 24Q323 26 360.5 59Q398 92 398 144Q398 174 382 198.5Q366 223 332 243L151 380Q105 410 85.5 452.5Q66 495 69 541Q72 589 96 628.5Q120 668 163.5 691Q207 714 268 714Z"}}},"montserrat":{"upm":1000,"g":{" ":{"a":269,"d":""},"A":{"a":732,"d":"M-1 0 316 700H415L733 0H628L551 175H179L102 0ZM516 255 365 598 214 255Z"},"D":{"a":826,"d":"M105 0V700H400Q512 700 597.5 656Q683 612 730.5 533Q778 454 778 350Q778 246 730.5 167Q683 88 597.5 44Q512 0 400 0ZM205 87H394Q481 87 544.5 120Q608 153 643 212.5Q678 272 678 350Q678 429 643 488Q608 547 544.5 580Q481 613 394 613H205Z"},"E":{"a":670,"d":"M105 0V700H599V613H205V398H556V313H205V87H613V0Z"},"I":{"a":310,"d":"M105 0V700H205V0Z"},"K":{"a":719,"d":"M105 0V700H205V309L585 700H699L400 385L718 0H601L333 311L205 181V0Z"},"M":{"a":955,"d":"M105 0V700H187L479 208L767 700H849L850 0H754L753 510L500 85H454L201 507V0Z"},"O":{"a":840,"d":"M421 -8Q341 -8 272.5 19Q204 46 154 94.5Q104 143 76 208Q48 273 48 350Q48 427 76 492Q104 557 154 605.5Q204 654 272 681Q340 708 421 708Q501 708 568.5 681.5Q636 655 686.5 606.5Q737 558 764.5 493Q792 428 792 350Q792 272 764.5 207Q737 142 686.5 93.5Q636 45 568.5 18.5Q501 -8 421 -8ZM421 81Q479 81 528.5 101Q578 121 614.5 157.5Q651 194 671.5 243Q692 292 692 350Q692 408 671.5 457Q651 506 614.5 542.5Q578 579 528.5 599Q479 619 421 619Q362 619 312.5 599Q263 579 226 542.5Q189 506 168.5 457Q148 408 148 350Q148 292 168.5 243Q189 194 226 157.5Q263 121 312.5 101Q362 81 421 81Z"},"R":{"a":727,"d":"M105 0V700H378Q514 700 592 635.5Q670 571 670 456Q670 380 635 325.5Q600 271 535 242Q526 238 516 234L682 0H573L422 215Q401 213 378 213H205V0ZM205 298H375Q471 298 520.5 339.5Q570 381 570 456Q570 531 520.5 572Q471 613 375 613H205Z"},"S":{"a":621,"d":"M309 -8Q229 -8 156 16.5Q83 41 41 80L78 158Q118 123 180 100Q242 77 309 77Q370 77 408 91Q446 105 464 129.5Q482 154 482 185Q482 221 458.5 243Q435 265 397.5 278.5Q360 292 315 302Q270 312 224.5 325.5Q179 339 141.5 360Q104 381 81 416.5Q58 452 58 508Q58 562 86.5 607.5Q115 653 174.5 680.5Q234 708 326 708Q387 708 447 692Q507 676 551 646L518 566Q473 596 423 609.5Q373 623 326 623Q267 623 229 608Q191 593 173.5 568Q156 543 156 512Q156 475 179.5 453Q203 431 240.5 418Q278 405 323 394.5Q368 384 413.5 371Q459 358 496.5 337Q534 316 557 281Q580 246 580 191Q580 138 551 92.5Q522 47 461.5 19.5Q401 -8 309 -8Z"},"T":{"a":587,"d":"M244 0V613H4V700H583V613H343V0Z"},"U":{"a":791,"d":"M395 -8Q257 -8 178 71Q99 150 99 302V700H199V306Q199 189 250.5 135Q302 81 396 81Q491 81 542.5 135Q594 189 594 306V700H691V302Q691 150 612.5 71Q534 -8 395 -8Z"},"V":{"a":712,"d":"M307 0 -1 700H107L359 125L613 700H713L406 0Z"},"\u2022":{"a":314,"d":"M157 184Q133 184 112 195.5Q91 207 78.5 228Q66 249 66 276Q66 302 78.5 322.5Q91 343 112 355Q133 367 157 367Q182 367 202.5 355Q223 343 235 322.5Q247 302 247 276Q247 249 235 228Q223 207 202.5 195.5Q182 184 157 184Z"}}}};
 
-      // Width of a string using the same rule as the canvas renderer:
-      // each character's advance + fixed letter-spacing between characters (no kerning).
       function outlineMeasure(fontKey, text, sizePx, spacing) {
         const f = OUTLINE_FONTS[fontKey];
         const k = sizePx / f.upm;
@@ -3018,7 +3324,6 @@
             ${outlineText('montserrat', 'MAKEOVER \u2022 STUDIO', 9.8, 3.3, 200, 274, 'middle', palette.goldText)}
           `;
         } else if (lockup === 'horizontal') {
-          // Same centering math as the canvas horizontal lockup, so SVG == on-screen preview
           const subtitle = 'MAKEOVER \u2022 STUDIO';
           const mainW = outlineMeasure('cinzel', "MALAR'S", 24, 5.0);
           const subW = outlineMeasure('montserrat', subtitle, 8.8, 2.6);
@@ -3048,7 +3353,22 @@
   <g ${emblemTransform} fill="none" stroke-linecap="round" stroke-linejoin="round">
     <path d="M 200 198 Q 152 197 124 172 Q 164 168 200 198 Z" stroke="${palette.ink}" stroke-width="4.5" />
     <path d="M 200 198 Q 248 197 276 172 Q 236 168 200 198 Z" stroke="${palette.ink}" stroke-width="4.5" />
-    <polyline points="${M_POINTS.map(p => p.x + ',' + p.y).join(' ')}" stroke="${palette.ink}" stroke-width="4.5" />
+    ${
+      state.mStyle === 'lotus'
+        ? `<path d="M 158 176 Q 155 140 164 112 Q 184 122 200 146 Q 216 122 236 112 Q 245 140 242 176" stroke="${palette.ink}" stroke-width="4.5" />`
+        : state.mStyle === 'editorial'
+          ? `<g stroke="${palette.ink}">
+               <line x1="162" y1="176" x2="162" y2="111" stroke-width="3.0" />
+               <line x1="162" y1="111" x2="200" y2="147" stroke-width="5.4" />
+               <line x1="200" y1="147" x2="238" y2="111" stroke-width="2.6" />
+               <line x1="238" y1="111" x2="238" y2="176" stroke-width="5.4" />
+               <line x1="156.5" y1="111" x2="165.8" y2="111" stroke-width="1.8" />
+               <line x1="234.2" y1="111" x2="243.5" y2="111" stroke-width="1.8" />
+               <line x1="157.3" y1="176" x2="166.7" y2="176" stroke-width="1.8" />
+               <line x1="233.3" y1="176" x2="242.7" y2="176" stroke-width="1.8" />
+             </g>`
+          : `<polyline points="${M_POINTS.map(p => p.x + ',' + p.y).join(' ')}" stroke="${palette.ink}" stroke-width="4.5" />`
+    }
     <path d="M 200 198 Q 187 175 200 156 Q 213 175 200 198 Z" stroke="${palette.gold}" stroke-width="4.2" />
     <path d="M 200 198 Q 173 188 174 165 Q 195 172 200 198 Z" stroke="${palette.gold}" stroke-width="4.2" />
     <path d="M 200 198 Q 227 188 226 165 Q 205 172 200 198 Z" stroke="${palette.gold}" stroke-width="4.2" />
@@ -3065,8 +3385,6 @@
         showToast('Downloaded Vector SVG');
       }
 
-      // Concentric gold rings for circular-crop DPs (Instagram / WhatsApp / YouTube).
-      // Radii 174 & 165 (of 200) sit safely inside the circular crop, so nothing gets cut off.
       function drawDpRings(ctx, palette) {
         ctx.save();
         ctx.strokeStyle = palette.gold;
@@ -3161,7 +3479,6 @@
           ctx.globalAlpha = 0.55;
           ctx.strokeRect(23, 23, 354, 354);
         } else {
-          // Full-bleed square (platforms apply the circular crop themselves)
           renderBrandScene(ctx, { themeKey, lockup: 'vertical', progress: 1, drawBg: true });
           drawDpRings(ctx, palette);
         }
@@ -3194,8 +3511,6 @@
 
       /* ----------------------------------------------------------------------
          11. NORMALIZED HD REEL VIDEO EXPORTER (9:16, 1:1, 16:9 | 3.0s, 4.5s, 6.5s)
-             Uses normalized duration math + destination-over radial gold aura
-             so there is NEVER a solid yellow circle bug at the end.
          ---------------------------------------------------------------------- */
       const renderOverlay = document.getElementById('renderOverlay');
       const renderSubtitle = document.getElementById('renderSubtitle');
@@ -3228,7 +3543,6 @@
         outCanvas.height = dims.h;
         const oCtx = outCanvas.getContext('2d');
 
-        // Crisp 1600x1600 transparent artwork buffer (4x the 400-unit logo space)
         const artCanvas = document.createElement('canvas');
         artCanvas.width = 1600;
         artCanvas.height = 1600;
@@ -3267,7 +3581,6 @@
         const totalMs = state.reelDuration * 1000;
         const startTime = performance.now();
         const activeTheme = state.theme === 'transparent' ? 'maroon' : state.theme;
-        const palette = THEMES[activeTheme];
 
         recorder.start();
 
@@ -3278,10 +3591,9 @@
           renderBarFill.style.width = `${pct}%`;
           renderPercent.textContent = `${pct}%`;
 
-          // Complete logo reveal within first 62% of reel, then hold cleanly
-          const animProg = clamp01(normT / 0.62);
+          const revealWindow = (state.motion === 'cascade' || state.motion === 'construct' || state.motion === 'grand') ? 0.76 : 0.62;
+          const animProg = clamp01(normT / revealWindow);
 
-          // Draw logo on transparent art buffer
           const scene = renderBrandScene(aCtx, {
             themeKey: activeTheme,
             lockup: state.lockup,
@@ -3291,27 +3603,22 @@
             drawBg: false,
             skipBgFill: true
           });
-          // Motions 2 & 3 switch surfaces mid-reel (ivory / maroon / noir): the FULL frame follows them
           const framePalette = scene.palette;
           const frameBg = scene.bg || framePalette.bg || '#2B070C';
 
-          // VIDEO HAS NO ALPHA CHANNEL: every pixel must be opaque or it renders as raw colour.
-          // (Painting a semi-transparent gold gradient onto an empty canvas is what produced the
-          //  big yellow disk behind the logo.) So: opaque base -> faint aura -> logo -> border.
           const holdProg = normT > 0.55 ? clamp01((normT - 0.55) / 0.45) : 0;
           const auraPulse = Math.max(0, Math.sin(holdProg * Math.PI));
           const cx = dims.w / 2;
           const cy = dims.h / 2;
           const outerR = Math.max(dims.w, dims.h) * 0.65;
 
-          // 1) Opaque background base
           oCtx.globalCompositeOperation = 'source-over';
           oCtx.globalAlpha = 1;
           const baseGrad = oCtx.createRadialGradient(cx, cy, 24, cx, cy, outerR);
           if (framePalette.isLight) {
-            baseGrad.addColorStop(0, '#FFFFFF');
-            baseGrad.addColorStop(0.55, '#FAF6F0');
-            baseGrad.addColorStop(1, '#EFE5D4');
+            baseGrad.addColorStop(0, framePalette.bgGlow || '#FFFFFF');
+            baseGrad.addColorStop(0.55, frameBg);
+            baseGrad.addColorStop(1, frameBg === '#F5E6E4' ? '#E8D2CF' : '#EFE5D4');
           } else {
             baseGrad.addColorStop(0, framePalette.bgGlow || '#6B1623');
             baseGrad.addColorStop(1, frameBg);
@@ -3319,8 +3626,6 @@
           oCtx.fillStyle = baseGrad;
           oCtx.fillRect(0, 0, dims.w, dims.h);
 
-          // 2) Very faint gold aura on dark surfaces only, fading to fully transparent
-          //    (drawn over the opaque base, so it can only warm the dark, never turn it yellow)
           if (!framePalette.isLight) {
             const auraA = (0.05 + auraPulse * 0.07).toFixed(3);
             const auraR = Math.min(dims.w, dims.h) * 0.5;
@@ -3331,13 +3636,11 @@
             oCtx.fillRect(0, 0, dims.w, dims.h);
           }
 
-          // 3) Logo layer, drawn larger so it reads clearly on a phone
           const artBox = Math.min(dims.w, dims.h) * 1.25;
           const dx = (dims.w - artBox) / 2;
           const dy = (dims.h - artBox) / 2;
           oCtx.drawImage(artCanvas, dx, dy, artBox, artBox);
 
-          // Subtle double gold border inside video frame
           oCtx.globalCompositeOperation = 'source-over';
           oCtx.strokeStyle = 'rgba(212, 175, 55, 0.35)';
           oCtx.lineWidth = 2;
@@ -3372,7 +3675,6 @@
         btn.addEventListener('click', () => switchWorkspace(btn.dataset.view));
       });
 
-      // Gear popover toggle
       document.getElementById('btnGearSettings').addEventListener('click', e => {
         e.stopPropagation();
         settingsPopover.classList.toggle('open');
@@ -3383,12 +3685,12 @@
         }
       });
 
-      // Popover Aspect & Duration selectors
       document.querySelectorAll('#popAspectGroup .pop-opt').forEach(btn => {
         btn.addEventListener('click', () => {
           document.querySelectorAll('#popAspectGroup .pop-opt').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           state.reelAspect = btn.dataset.aspect;
+          savePrefs();
           showToast(`Reel Ratio: ${state.reelAspect}`);
         });
       });
@@ -3398,42 +3700,52 @@
           document.querySelectorAll('#popDurationGroup .pop-opt').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           state.reelDuration = parseFloat(btn.dataset.duration);
+          savePrefs();
           showToast(`Reel Duration: ${state.reelDuration.toFixed(1)}s`);
         });
       });
 
-      // Theme Swatches
       document.querySelectorAll('.theme-swatch').forEach(btn => {
         btn.addEventListener('click', () => {
           document.querySelectorAll('.theme-swatch').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           state.theme = btn.dataset.theme;
           stageCard.className = `stage-card theme-${state.theme}`;
+          savePrefs();
         });
       });
 
-      // Lockup Buttons
+      document.querySelectorAll('[data-mstyle]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('[data-mstyle]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          state.mStyle = btn.dataset.mstyle;
+          savePrefs();
+          replayMotion();
+          showToast(`M Style: ${btn.textContent}`);
+        });
+      });
+
       document.querySelectorAll('[data-lockup]').forEach(btn => {
         btn.addEventListener('click', () => {
           document.querySelectorAll('[data-lockup]').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           state.lockup = btn.dataset.lockup;
+          savePrefs();
           replayMotion();
         });
       });
 
-      // Motion Preset Dropdown
       document.getElementById('motionSelect').addEventListener('change', e => {
         state.motion = e.target.value;
         activeMotionLabel.textContent = MOTION_LABELS[state.motion];
+        savePrefs();
         replayMotion();
       });
 
-      // Tap Stage or Replay Button to Replay
       stageCard.addEventListener('click', replayMotion);
       document.getElementById('dockBtnReplay').addEventListener('click', replayMotion);
 
-      // Export Triggers (Header & Bottom Dock)
       ['topBtnSvg', 'dockBtnSvg'].forEach(id => {
         document.getElementById(id).addEventListener('click', exportSvg);
       });
@@ -3447,7 +3759,6 @@
         document.getElementById(id).addEventListener('click', exportHdReelVideo);
       });
 
-      // Re-render on font load or resize
       if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(() => {
           renderAllBrandKitCanvases();
@@ -3457,7 +3768,16 @@
         setupRetinaCanvas(studioCanvas, LOGICAL_SIZE, LOGICAL_SIZE);
       });
 
-      // Initialize immediately
+      loadPrefs();
+      stageCard.className = `stage-card theme-${state.theme}`;
+      document.querySelectorAll('.theme-swatch').forEach(b => b.classList.toggle('active', b.dataset.theme === state.theme));
+      document.querySelectorAll('[data-mstyle]').forEach(b => b.classList.toggle('active', b.dataset.mstyle === state.mStyle));
+      document.querySelectorAll('[data-lockup]').forEach(b => b.classList.toggle('active', b.dataset.lockup === state.lockup));
+      document.getElementById('motionSelect').value = state.motion;
+      activeMotionLabel.textContent = MOTION_LABELS[state.motion];
+      document.querySelectorAll('#popAspectGroup .pop-opt').forEach(b => b.classList.toggle('active', b.dataset.aspect === state.reelAspect));
+      document.querySelectorAll('#popDurationGroup .pop-opt').forEach(b => b.classList.toggle('active', parseFloat(b.dataset.duration) === state.reelDuration));
+
       setupRetinaCanvas(studioCanvas, LOGICAL_SIZE, LOGICAL_SIZE);
       state.animStart = performance.now();
       requestAnimationFrame(animateStage);
